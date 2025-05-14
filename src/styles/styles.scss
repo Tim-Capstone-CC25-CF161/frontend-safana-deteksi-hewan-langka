@@ -2,19 +2,37 @@ $primary: #F9731A;
 $secondary: #2F1C0E;
 $cream: #FFF5E1;
 
+$offcanvas-vertical-height: fit-content;
+
 @import "bootstrap/scss/bootstrap";
 
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+nav {
+  view-transition-name: header;
+}
+
 .background-img-head {
-    background-size: cover;
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../public/images/background-head.png');
-    background-repeat: no-repeat;
-    background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../public/images/background-head.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .background-gradient {
-    background-image: linear-gradient(to bottom, $primary, $secondary);
+  background-image: linear-gradient(to bottom, $primary, $secondary);
 }
 
 .bg-cream {
-    background-color: $cream;
+  background-color: $cream;
+}
+
+.h-fit-content {
+  height: fit-content;
 }

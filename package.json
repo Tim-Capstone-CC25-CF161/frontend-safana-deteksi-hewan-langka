@@ -1,5 +1,5 @@
 {
-  "name": "app-starter-project-with-webpack",
+  "name": "safana-deteksi-hewan-langka",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,7 +9,7 @@
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
-  "author": "YOUR_NAME <yourmail@mail.com>",
+  "author": "Tim-Capstone-CC25-CF161",
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
