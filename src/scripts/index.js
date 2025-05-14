@@ -1,5 +1,7 @@
 // CSS imports
-import '../styles/styles.css';
+import '../styles/styles.scss';
+import 'leaflet/dist/leaflet.css';
+import * as bootstrap from 'bootstrap';
 
 import App from './pages/app';
 

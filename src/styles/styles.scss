@@ -1,0 +1,20 @@
+$primary: #F9731A;
+$secondary: #2F1C0E;
+$cream: #FFF5E1;
+
+@import "bootstrap/scss/bootstrap";
+
+.background-img-head {
+    background-size: cover;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../public/images/background-head.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.background-gradient {
+    background-image: linear-gradient(to bottom, $primary, $secondary);
+}
+
+.bg-cream {
+    background-color: $cream;
+}
