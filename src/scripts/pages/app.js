@@ -4,10 +4,12 @@ import { Offcanvas } from 'bootstrap';
 import { transitionHelper } from '../utils';
 
 class App {
+  #loadingMain = null;
   #content = null;
 
-  constructor({ content }) {
+  constructor({ content, loadingMain }) {
     this.#content = content;
+    this.#loadingMain = loadingMain;
   }
 
   async renderPage() {
@@ -28,6 +30,10 @@ class App {
       const offcanvas = Offcanvas.getOrCreateInstance(document.querySelector('#offcanvasNavbar'));
       offcanvas.hide();
     });
+
+    if (this.#loadingMain) {
+      this.#loadingMain.remove();
+    }
   }
 }
 

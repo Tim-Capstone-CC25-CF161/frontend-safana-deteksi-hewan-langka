@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     content: document.querySelector('#main-content'),
     drawerButton: document.querySelector('#drawer-button'),
     navigationDrawer: document.querySelector('#navigation-drawer'),
+    loadingMain: document.querySelector('#main-loading-container'),
   });
   await app.renderPage();
 
