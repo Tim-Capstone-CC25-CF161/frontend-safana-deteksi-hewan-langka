@@ -1,6 +1,6 @@
 import LoginPresenter from './login-presenter';
-import * as StoryKuAPI from '../../../data/api';
-import * as AuthModel from '../../../utils/auth';
+import * as AuthModel from '../../../data/auth-model';
+import * as AuthConfig from '../../../utils/auth';
 import Toast from '../../components/toats';
 import Swal from 'sweetalert2';
 
@@ -24,7 +24,11 @@ export default class LoginPage {
                 <label for="input-password" class="form-label">Password<span class="text-danger">*</span></label>
                 <input id="input-password" class="form-control" type="password" name="password" placeholder="Masukkan password Anda" required>
               </div>
-              <button class="btn btn-secondary w-100 mt-5" type="submit">Masuk</button>
+              <div id="container-submit-button">
+                <button class="btn btn-secondary w-100 mt-5" type="submit">
+                  Masuk
+                </button>
+              </div>
             </form>
           </div>
           <div class="card-footer bg-transparent border-0">
@@ -38,8 +42,8 @@ export default class LoginPage {
   async afterRender() {
     this.#presenter = new LoginPresenter({
       view: this,
-      model: StoryKuAPI,
-      authModel: AuthModel,
+      model: AuthModel,
+      authConfig: AuthConfig,
     });
 
     this._setupForm();
@@ -77,17 +81,17 @@ export default class LoginPage {
     });
   }
 
-//   showSubmitLoadingButton() {
-//     document.getElementById('container-submit-button').innerHTML = `
-//       <button class="btn" type="submit" disabled>
-//         <i class="fas fa-spinner loader-button"></i> Masuk
-//       </button>
-//     `;
-//   }
+  showSubmitLoadingButton() {
+    document.getElementById('container-submit-button').innerHTML = `
+      <button class="btn btn-secondary w-100 mt-5" type="submit">
+        <i class="bi bi-gear loader-icon"></i> Memproses...
+      </button>
+    `;
+  }
 
-//   hideSubmitLoadingButton() {
-//     document.getElementById('container-submit-button').innerHTML = `
-//       <button class="btn" type="submit">Masuk</button>
-//     `;
-//   }
+  hideSubmitLoadingButton() {
+    document.getElementById('container-submit-button').innerHTML = `
+      <button class="btn btn-secondary w-100 mt-5" type="submit">Masuk</button>
+    `;
+  }
 }

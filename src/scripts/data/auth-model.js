@@ -26,6 +26,7 @@ export async function getLogin({ username, password }) {
 export async function getLogout() {
   const fetchResponse = await fetch(ENDPOINTS.LOGOUT, {
     method: 'POST',
+    credentials: 'include',
   });
   const json = await fetchResponse.json();
 
@@ -35,8 +36,8 @@ export async function getLogout() {
   };
 }
 
-export async function getRegister({ email, username, password }) {
-  const data = JSON.stringify({ email, username, password });
+export async function getRegister({ name, username, password }) {
+  const data = JSON.stringify({ name, username, password });
 
   const fetchResponse = await fetch(ENDPOINTS.REGISTER, {
     method: 'POST',

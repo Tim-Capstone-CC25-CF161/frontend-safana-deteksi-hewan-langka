@@ -7,8 +7,7 @@ import App from './pages/app';
 document.addEventListener('DOMContentLoaded', async () => {
   const app = new App({
     content: document.querySelector('#main-content'),
-    drawerButton: document.querySelector('#drawer-button'),
-    navigationDrawer: document.querySelector('#navigation-drawer'),
+    containerNavbarButton: document.querySelector('#container-navbar-button'),
     loadingMain: document.querySelector('#main-loading-container'),
   });
   await app.renderPage();

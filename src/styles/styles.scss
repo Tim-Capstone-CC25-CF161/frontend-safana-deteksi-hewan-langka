@@ -3,8 +3,10 @@ $secondary: #2F1C0E;
 $cream: #FFF5E1;
 
 $offcanvas-vertical-height: fit-content;
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
 
 @import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),

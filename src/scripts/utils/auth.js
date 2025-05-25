@@ -1,36 +1,37 @@
 import { getActiveRoute } from '../routes/url-parser';
+import { getLogout as getLogoutApi } from '../data/auth-model';
 import CONFIG from '../config';
 
-export function getAccessToken() {
+export function getUserDataLogin() {
   try {
-    const accessToken = localStorage.getItem(CONFIG.ACCESS_TOKEN_KEY);
+    const userDataLogin = localStorage.getItem(CONFIG.USER_DATA_LOGIN);
 
-    if (accessToken === 'null' || accessToken === 'undefined') {
+    if (userDataLogin === 'null' || userDataLogin === 'undefined') {
       return null;
     }
 
-    return accessToken;
+    return JSON.parse(userDataLogin);
   } catch (error) {
-    console.error('getAccessToken: error:', error);
+    console.error('getUserDataLogin: error:', error);
     return null;
   }
 }
 
-export function putAccessToken(token) {
+export function putUserDataLogin(userDataLogin) {
   try {
-    localStorage.setItem(CONFIG.ACCESS_TOKEN_KEY, token);
+    localStorage.setItem(CONFIG.USER_DATA_LOGIN, JSON.stringify(userDataLogin));
 
     return true;
   } catch (error) {
-    console.error('putAccessToken: error:', error);
+    console.error('getUserDataLogin: error:', error);
 
     return false;
   }
 }
 
-export function removeAccessToken() {
+export function removeUserDataLogin() {
   try {
-    localStorage.removeItem(CONFIG.ACCESS_TOKEN_KEY);
+    localStorage.removeItem(CONFIG.USER_DATA_LOGIN);
 
     return true;
   } catch (error) {
@@ -44,7 +45,7 @@ const unauthenticatedRoutesOnly = ['/login', '/register'];
 
 export function checkUnauthenticatedRouteOnly(page) {
   const url = getActiveRoute();
-  const isLogin = !!getAccessToken();
+  const isLogin = !!getUserDataLogin();
 
   if (unauthenticatedRoutesOnly.includes(url) && isLogin) {
     location.hash = '/';
@@ -56,7 +57,7 @@ export function checkUnauthenticatedRouteOnly(page) {
 }
 
 export function checkAuthenticatedRoute(page) {
-  const isLogin = !!getAccessToken();
+  const isLogin = !!getUserDataLogin();
 
   if (!isLogin) {
     location.hash = '/login';
@@ -67,6 +68,19 @@ export function checkAuthenticatedRoute(page) {
   return page;
 }
 
-export function getLogout() {
-  removeAccessToken();
+export async function getLogout() {
+  try {
+    const response = await getLogoutApi();
+
+    if (!response.ok) {
+      console.error('getLogout: response:', response);
+      return false;
+    }
+
+    removeUserDataLogin();
+    return true;
+  } catch (error) {
+    console.error('getLogout: error:', error);
+    return false;
+  }
 }

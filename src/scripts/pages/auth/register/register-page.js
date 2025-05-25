@@ -1,6 +1,5 @@
 import RegisterPresenter from './register-presenter';
-import * as StoryKuAPI from '../../../data/api';
-import * as AuthModel from '../../../utils/auth';
+import * as AuthModel from '../../../data/auth-model';
 import Toast from '../../components/toats';
 import Swal from 'sweetalert2';
 
@@ -17,8 +16,8 @@ export default class RegisterPage {
           <div class="card-body">
             <form id="register-form" class="register-form mt-3">
               <div class="mb-3">
-                <label for="input-email" class="form-label">Email<span class="text-danger">*</span></label>
-                <input id="input-email" class="form-control" type="email" name="email" placeholder="Masukkan email Anda" required autofocus>
+                <label for="input-name" class="form-label">Nama Lengkap<span class="text-danger">*</span></label>
+                <input id="input-name" class="form-control" type="text" name="name" placeholder="Masukkan nama lengkap Anda" required autofocus>
               </div>
               <div class="mb-3">
                 <label for="input-username" class="form-label">Username<span class="text-danger">*</span></label>
@@ -28,7 +27,11 @@ export default class RegisterPage {
                 <label for="input-password" class="form-label">Password<span class="text-danger">*</span></label>
                 <input id="input-password" class="form-control" type="password" name="password" placeholder="Masukkan password Anda" required>
               </div>
-              <button class="btn btn-secondary w-100 mt-5" type="submit">Daftar</button>
+              <div id="container-submit-button">
+                <button class="btn btn-secondary w-100 mt-5" type="submit">
+                  Daftar
+                </button>
+              </div>
             </form>
           </div>
           <div class="card-footer bg-transparent border-0">
@@ -42,8 +45,7 @@ export default class RegisterPage {
   async afterRender() {
     this.#presenter = new RegisterPresenter({
       view: this,
-      model: StoryKuAPI,
-      authModel: AuthModel,
+      model: AuthModel,
     });
 
     this._setupForm();
@@ -54,7 +56,7 @@ export default class RegisterPage {
       event.preventDefault();
 
       const data = {
-        email: document.getElementById('input-email').value,
+        name: document.getElementById('input-name').value,
         username: document.getElementById('input-username').value,
         password: document.getElementById('input-password').value,
       };
@@ -66,33 +68,33 @@ export default class RegisterPage {
   registerSuccessfully() {
     Toast.fire({
       icon: "success",
-      title: 'Register Berhasil',
+      title: 'Pendaftaran Akun Berhasil',
     });
 
-    location.hash = '/';
+    location.hash = '/login';
   }
 
   registerFailed(message) {
     Swal.fire({
       icon: 'error',
-      title: 'Register Gagal',
+      title: 'Pendaftaran Akun Gagal',
       text: message,
       confirmButtonText: 'Tutup',
       confirmButtonColor: '#8EC3B0',
     });
   }
 
-//   showSubmitLoadingButton() {
-//     document.getElementById('container-submit-button').innerHTML = `
-//       <button class="btn" type="submit" disabled>
-//         <i class="fas fa-spinner loader-button"></i> Masuk
-//       </button>
-//     `;
-//   }
+  showSubmitLoadingButton() {
+    document.getElementById('container-submit-button').innerHTML = `
+      <button class="btn btn-secondary w-100 mt-5" type="submit" disabled>
+        <i class="bi bi-gear loader-icon"></i> Memproses...
+      </button>
+    `;
+  }
 
-//   hideSubmitLoadingButton() {
-//     document.getElementById('container-submit-button').innerHTML = `
-//       <button class="btn" type="submit">Masuk</button>
-//     `;
-//   }
+  hideSubmitLoadingButton() {
+    document.getElementById('container-submit-button').innerHTML = `
+      <button class="btn btn-secondary w-100 mt-5" type="submit">Daftar</button>
+    `;
+  }
 }
