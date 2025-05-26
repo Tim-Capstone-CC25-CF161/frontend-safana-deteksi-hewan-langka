@@ -1,4 +1,4 @@
-import { map, tileLayer, Icon, icon, marker, popup, latLng } from 'leaflet';
+import { map, tileLayer, Icon, icon, marker, popup, latLng, control } from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -86,13 +86,35 @@ export default class Map {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
     });
- 
+
+    const osmHOT = tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+    });
+
+    const openTopoMap = tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution:
+        'Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, <a href="https://viewfinderpanoramas.org/" target="_blank">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org/" target="_blank">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC-BY-SA</a>)',
+    });
+
+    const baseMaps = {
+      'OpenStreetMap': tileOsm,
+      'OpenStreetMap HOT': osmHOT,
+      'OpenTopoMap': openTopoMap,
+    };
+
+    const layerControl = control.layers(baseMaps, {}, {
+      position: 'topright',
+    });
+
     this.#map = map(document.querySelector(selector), {
       zoom: this.#zoom,
       scrollWheelZoom: false,
       layers: [tileOsm],
       ...options,
     });
+
+    this.#map.addControl(layerControl);
   }
 
   changeCamera(coordinate, zoomLevel = null) {

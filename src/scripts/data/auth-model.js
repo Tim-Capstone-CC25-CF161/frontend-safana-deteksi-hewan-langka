@@ -1,7 +1,6 @@
 import CONFIG from '../config';
 
 const ENDPOINTS = {
-  // Auth
   LOGIN: `${CONFIG.BASE_URL}/login`,
   REGISTER: `${CONFIG.BASE_URL}/register`,
   LOGOUT: `${CONFIG.BASE_URL}/logout`,

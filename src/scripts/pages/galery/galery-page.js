@@ -18,15 +18,13 @@ export default class GaleryPage {
       <div class="card shadow-sm" style="width: 20rem;">
         <img src="https://placehold.co/600x400?text=Foto+Hewan" class="card-img-top" alt="Foto Hewan">
         <div class="card-body">
-          <h5 class="card-title">Lorem, ipsum.</h5>
-          <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, sapiente.</p>
-          <button class="btn btn-primary text-light">Lihat Detail</button>
+          <h5 class="card-title">Nama Hewan {index}</h5>
         </div>
       </div>
     `;
 
     for (let index = 0; index < 10; index++) {
-      bodyGalery.innerHTML += templateCard;
+      bodyGalery.innerHTML += templateCard.replace('{index}', index + 1);
     }
   }
 }
