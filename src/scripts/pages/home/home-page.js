@@ -62,7 +62,9 @@ export default class HomePage {
 
   _setupForm() {
     document.getElementById('camera-button').addEventListener('click', () => {
-      console.log('Open camera');
+      document.getElementById('cancel-button').click();
+
+      location.hash = '/camera';
     });
 
     document.getElementById('gallery-button').addEventListener('click', () => {
@@ -87,10 +89,12 @@ export default class HomePage {
     });
 
     document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
-      document.getElementById('preview-image').classList.add('d-none');
-      document.getElementById('upload-button').classList.add('d-none');
-      document.getElementById('container-opsi-upload').classList.remove('d-none');
-      document.getElementById('modalOpsiUploadLabel').textContent = 'Pilih Sumber Foto';
+      document.getElementById('preview-image')?.classList.add('d-none');
+      document.getElementById('upload-button')?.classList.add('d-none');
+      document.getElementById('container-opsi-upload')?.classList.remove('d-none');
+      if (document.getElementById('modalOpsiUploadLabel')) {
+        document.getElementById('modalOpsiUploadLabel').textContent = 'Pilih Sumber Foto';
+      }
       fileInput.value = '';
     });
 

@@ -1,6 +1,7 @@
 import LoginPage from '../pages/auth/login/login-page';
 import RegisterPage from '../pages/auth/register/register-page';
 import BksdaPage from '../pages/bksda/bksda-page';
+import CameraPage from '../pages/camera/camera-page';
 import GaleryPage from '../pages/galery/galery-page';
 import HomePage from '../pages/home/home-page';
 import MapsPage from '../pages/maps/maps-page';
@@ -15,6 +16,7 @@ const routes = {
   '/galery': new GaleryPage(),
   '/bksda': new BksdaPage(),
 
+  '/camera': new CameraPage(),
   '/result': new ResultPage(),
 };
 

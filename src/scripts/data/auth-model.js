@@ -12,6 +12,7 @@ export async function getLogin({ username, password }) {
   const fetchResponse = await fetch(ENDPOINTS.LOGIN, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: data,
   });
   const json = await fetchResponse.json();
@@ -41,6 +42,7 @@ export async function getRegister({ name, username, password }) {
   const fetchResponse = await fetch(ENDPOINTS.REGISTER, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: data,
   });
   const json = await fetchResponse.json();
