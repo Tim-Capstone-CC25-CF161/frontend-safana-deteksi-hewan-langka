@@ -1,18 +1,18 @@
 export default class HomePresenter {
   #view;
   #model;
+  #prediksiConfig;
 
-  constructor({ view, model }) {
+  constructor({ view, model, prediksiConfig }) {
     this.#view = view;
     this.#model = model;
+    this.#prediksiConfig = prediksiConfig;
   }
 
-  async getPrediksi({ file }) {
+  async getPrediksi({ file, latitude, longitude }) {
     this.#view.showLoadingPrediksi();
     try {
-      console.log('getPrediksi: file:', file);
-      
-      const response = await this.#model.getPrediksi({ file });
+      const response = await this.#model.getPrediksi({ file, latitude, longitude });
 
       if (!response.ok) {
         console.error('getPrediksi: response:', response);
@@ -21,6 +21,7 @@ export default class HomePresenter {
         return;
       }
 
+      this.#prediksiConfig.putHasilPrediksi(response.data);
       this.#view.prediksiSuccessfully();
     } catch (error) {
       console.error('getPrediksi: error:', error);

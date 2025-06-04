@@ -120,7 +120,7 @@ export default class Camera {
     Camera.addNewStream(this.#currentStream);
 
     this.#videoElement.srcObject = this.#currentStream;
-    this.#videoElement.play();
+    await this.#videoElement.play();
 
     this.#clearCanvas();
   }

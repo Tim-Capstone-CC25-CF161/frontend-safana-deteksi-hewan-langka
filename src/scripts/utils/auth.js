@@ -1,5 +1,6 @@
 import { getActiveRoute } from '../routes/url-parser';
 import { getLogout as getLogoutApi } from '../data/auth-model';
+import { removeHasilPrediksi } from './prediction';
 import CONFIG from '../config';
 
 export function getUserDataLogin() {
@@ -78,6 +79,7 @@ export async function getLogout() {
     }
 
     removeUserDataLogin();
+    removeHasilPrediksi();
     return true;
   } catch (error) {
     console.error('getLogout: error:', error);

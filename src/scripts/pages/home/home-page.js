@@ -1,6 +1,9 @@
 import Swal from "sweetalert2";
 import * as HewanModel from "../../data/hewan-model";
+import * as PrediksiConfig from '../../utils/prediction';
 import HomePresenter from "./home-presenter";
+import Map from "../../utils/maps";
+import { Modal } from "bootstrap";
 
 export default class HomePage {
   #presenter = null;
@@ -11,7 +14,7 @@ export default class HomePage {
         <div class="d-flex align-items-center justify-content-center flex-column text-center container px-5 gap-3 text-light">
           <h1 class="fs-1 fw-bold">Kenali Satwa dari Fotomu!</h1>
           <p class="fs-4 text-center">Bisa jadi kamu baru saja melihat makhluk luar biasa! Unggah fotonya dan cari tahu apakah ia termasuk satwa yang sudah punah!</p>
-          <button class="btn btn-primary rounded-pill text-light px-5 fs-4 py-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#modalOpsiUpload">
+          <button id="show-modal-opsi-button" class="btn btn-primary rounded-pill text-light px-5 fs-4 py-3 fw-semibold">
             Unggah & Cari Tahu!
           </button>
         </div>
@@ -37,6 +40,8 @@ export default class HomePage {
               <img id="preview-image" class="img-fluid d-none w-100" alt="Preview Foto">
 
               <form id="upload-form" class="d-none">
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
                 <input type="file" id="file-input" accept="image/*" class="form-control mt-3">
                 <button type="submit" class="btn btn-primary mt-3 w-100" id="form-upload-button">Unggah Foto</button>
               </form>
@@ -55,60 +60,106 @@ export default class HomePage {
     this.#presenter = new HomePresenter({
       view: this,
       model: HewanModel,
+      prediksiConfig: PrediksiConfig
     });
 
-    this._setupForm();
+    await this._setupForm();
   }
 
-  _setupForm() {
-    document.getElementById('camera-button').addEventListener('click', () => {
-      document.getElementById('cancel-button').click();
+  async _setupForm() {
+    const showModalButton = document.getElementById('show-modal-opsi-button');
+    const modalOpsiUpload = new Modal('#modalOpsiUpload', {});
 
-      location.hash = '/camera';
-    });
+    showModalButton.addEventListener('click', async () => {
+      try {
+        Swal.fire({
+          title: 'Memuat Lokasi...',
+          text: 'Mohon aktifkan lokasi Anda untuk melanjutkan.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
 
-    document.getElementById('gallery-button').addEventListener('click', () => {
-      document.getElementById('file-input').click();
-    });
+        const position = await Map.getCurrentPosition();
 
-    const fileInput = document.getElementById('file-input');
-    fileInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
+        if (position) {
+          Swal.close();
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
 
-      if (file) {
-        this._setPreviewImage(file);
-        document.getElementById('upload-button').classList.remove('d-none');
-        document.getElementById('container-opsi-upload').classList.add('d-none');
-        document.getElementById('modalOpsiUploadLabel').textContent = 'Pratinjau Foto';
-      } else {
-        document.getElementById('preview-image').classList.add('d-none');
-        document.getElementById('upload-button').classList.add('d-none');
-        document.getElementById('container-opsi-upload').classList.remove('d-none');
-        document.getElementById('modalOpsiUploadLabel').textContent = 'Pilih Sumber Foto';
+          document.getElementById('latitude').value = latitude;
+          document.getElementById('longitude').value = longitude;
+          modalOpsiUpload.show();
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal Memuat Lokasi',
+          text: 'Pastikan lokasi Anda diaktifkan untuk menjalankan fitur ini.',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          confirmButtonText: 'Tutup',
+          confirmButtonColor: '#8EC3B0',
+        });
       }
     });
 
-    document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
-      document.getElementById('preview-image')?.classList.add('d-none');
-      document.getElementById('upload-button')?.classList.add('d-none');
-      document.getElementById('container-opsi-upload')?.classList.remove('d-none');
-      if (document.getElementById('modalOpsiUploadLabel')) {
-        document.getElementById('modalOpsiUploadLabel').textContent = 'Pilih Sumber Foto';
-      }
-      fileInput.value = '';
-    });
+    document.getElementById('modalOpsiUpload').addEventListener('shown.bs.modal', async () => {
+      document.getElementById('camera-button').addEventListener('click', () => {
+        document.getElementById('cancel-button').click();
 
-    document.getElementById('upload-form').addEventListener('submit', async (event) => {
-      event.preventDefault();
+        location.hash = '/camera';
+      });
 
-      document.getElementById('cancel-button').click();
+      document.getElementById('gallery-button').addEventListener('click', () => {
+        document.getElementById('file-input').click();
+      });
 
-      const file = fileInput.files[0];
-      await this.#presenter.getPrediksi({ file });
-    });
+      const fileInput = document.getElementById('file-input');
+      fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
 
-    document.getElementById('upload-button').addEventListener('click', () => {
-      document.getElementById('form-upload-button').click();
+        if (file) {
+          this._setPreviewImage(file);
+          document.getElementById('upload-button').classList.remove('d-none');
+          document.getElementById('container-opsi-upload').classList.add('d-none');
+          document.getElementById('modalOpsiUploadLabel').textContent = 'Pratinjau Foto';
+        } else {
+          document.getElementById('preview-image').classList.add('d-none');
+          document.getElementById('upload-button').classList.add('d-none');
+          document.getElementById('container-opsi-upload').classList.remove('d-none');
+          document.getElementById('modalOpsiUploadLabel').textContent = 'Pilih Sumber Foto';
+        }
+      });
+
+      document.querySelector('.modal').addEventListener('hidden.bs.modal', () => {
+        document.getElementById('preview-image')?.classList.add('d-none');
+        document.getElementById('upload-button')?.classList.add('d-none');
+        document.getElementById('container-opsi-upload')?.classList.remove('d-none');
+        if (document.getElementById('modalOpsiUploadLabel')) {
+          document.getElementById('modalOpsiUploadLabel').textContent = 'Pilih Sumber Foto';
+        }
+        fileInput.value = '';
+      });
+
+      document.getElementById('upload-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        document.getElementById('cancel-button').click();
+
+        const file = fileInput.files[0];
+        const latitude = document.getElementById('latitude').value;
+        const longitude = document.getElementById('longitude').value;
+
+        await this.#presenter.getPrediksi({ file, latitude, longitude });
+      });
+
+      document.getElementById('upload-button').addEventListener('click', () => {
+        document.getElementById('form-upload-button').click();
+      });
     });
   }
 
