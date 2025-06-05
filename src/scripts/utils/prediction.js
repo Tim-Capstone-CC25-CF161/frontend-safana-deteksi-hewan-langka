@@ -2,8 +2,7 @@ import CONFIG from "../config";
 
 export function getHasilPrediksi() {
   try {
-    // const hasilPrediksi = sessionStorage.getItem(CONFIG.PREDICTION_RESULT);
-    const hasilPrediksi = localStorage.getItem('prediksi');
+    const hasilPrediksi = sessionStorage.getItem(CONFIG.PREDICTION_RESULT);
 
     if (hasilPrediksi === 'null' || hasilPrediksi === 'undefined') {
       return null;

@@ -21,7 +21,7 @@ export default class HomePresenter {
         return;
       }
 
-      this.#prediksiConfig.putHasilPrediksi(response.data);
+      this.#prediksiConfig.putHasilPrediksi(response);
       this.#view.prediksiSuccessfully();
     } catch (error) {
       console.error('getPrediksi: error:', error);

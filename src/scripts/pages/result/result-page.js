@@ -14,7 +14,7 @@ export default class ResultPage {
             <h1 class="fs-1 text-center">Hasil Deteksi</h1>
           </div>
           <div id="result-body" class="card-body">
-            <div class="row justify-content-center align-items-center">
+            <div class="row justify-content-center align-items-center mt-4">
               <div class="col-12 col-md-6">
                 <canvas id="canvas" class="w-100"></canvas>
               </div>
@@ -55,7 +55,6 @@ export default class ResultPage {
   }
 
   getPrediksiSuccessfully(response) {
-    console.log('getPrediksiSuccessfully: response:', response);
     const resultDetailName = document.getElementById('result-detail-name');
     const resultDetailProbability = document.getElementById(
       'result-detail-probability'
@@ -67,7 +66,7 @@ export default class ResultPage {
     ).toFixed(1)}%`;
 
     this._drawPrediksi(
-      `${CONFIG.BASE_URL}/${response.uploaded_image_url}`,
+      `${CONFIG.BASE_URL}${response.uploaded_image_url}`,
       response.data
     );
   }
