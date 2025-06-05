@@ -38,3 +38,11 @@ nav {
 .h-fit-content {
   height: fit-content;
 }
+
+.galery-item-card {
+  cursor: pointer;
+}
+
+.galery-item-card:hover {
+  transform: scale(1.05);
+}

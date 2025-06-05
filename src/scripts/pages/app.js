@@ -66,7 +66,7 @@ class App {
             Swal.fire({
               icon: 'error',
               title: 'Gagal Keluar',
-              text: 'Terjadi kesalahan saat mencoba keluar dari akun Anda.',
+              text: 'Terjadi kesalahan saat mencoba keluar dari akun Anda',
               confirmButtonText: 'Tutup',
               confirmButtonColor: '#8EC3B0',
             });

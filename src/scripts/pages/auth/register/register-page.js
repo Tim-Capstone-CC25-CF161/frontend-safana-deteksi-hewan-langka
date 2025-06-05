@@ -25,7 +25,12 @@ export default class RegisterPage {
               </div>
               <div class="mb-3">
                 <label for="input-password" class="form-label">Password<span class="text-danger">*</span></label>
-                <input id="input-password" class="form-control" type="password" name="password" placeholder="Masukkan password Anda" required>
+                <div class="input-group">
+                  <input id="input-password" class="form-control" type="password" name="password" placeholder="Masukkan password Anda" required>
+                  <button class="btn btn-light border" type="button" id="button-toggle-password" tabindex="-1">
+                    <i class="bi bi-eye-slash-fill"></i>
+                  </button>
+                </div>
               </div>
               <div id="container-submit-button">
                 <button class="btn btn-secondary w-100 mt-5" type="submit">
@@ -49,6 +54,7 @@ export default class RegisterPage {
     });
 
     this._setupForm();
+    this._setUpTogglePassword();
   }
   
   _setupForm() {
@@ -62,6 +68,21 @@ export default class RegisterPage {
       };
 
       await this.#presenter.getRegister(data);
+    });
+  }
+  
+  _setUpTogglePassword() {
+    const passwordInput = document.getElementById('input-password');
+    const buttonTogglePassword = document.getElementById('button-toggle-password');
+
+    buttonTogglePassword.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        buttonTogglePassword.innerHTML = '<i class="bi bi-eye-fill"></i>';
+      } else {
+        passwordInput.type = 'password';
+        buttonTogglePassword.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+      }
     });
   }
 

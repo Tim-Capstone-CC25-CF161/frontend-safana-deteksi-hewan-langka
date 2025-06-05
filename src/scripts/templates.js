@@ -28,3 +28,35 @@ export function generateAuthenticatedContainerNavbarButtonTemplate() {
     </div>
   `;
 }
+
+export function generatePaginationButton() {
+  return `
+    <div id="nav-pagination" aria-label="Pagination Data Search">
+      <ul class="pagination">
+        <li class="page-item">
+          <a id="paginate-first" class="page-link" href="#" aria-label="First Page" data-page="1">
+            <i aria-hidden="true" class="bi bi-chevron-double-left fw-bold"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a id="paginate-prev" class="page-link" href="#" aria-label="Previous" data-page="1">
+            <i aria-hidden="true" class="bi bi-chevron-left fw-bold"></i>
+          </a>
+        </li>
+        <li class="page-item"><a id="paginate-numberfirst" class="page-link d-none" data-page="1" href="#">1</a></li>
+        <li class="page-item active"><a id="paginate-numbermiddle" class="page-link" data-page="1" aria-current="page">2</a></li>
+        <li class="page-item"><a id="paginate-numberlast" class="page-link d-none" data-page="1" href="#">3</a></li>
+        <li class="page-item">
+          <a id="paginate-next" class="page-link" href="#" aria-label="Next" data-page="1">
+            <i aria-hidden="true" class="bi bi-chevron-right fw-bold"></i>
+          </a>
+        </li>
+        <li class="page-item">
+          <a id="paginate-last" class="page-link" href="#" aria-label="Last Page" data-page="1">
+            <i aria-hidden="true" class="bi bi-chevron-double-right fw-bold"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  `;
+}
