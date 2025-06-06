@@ -18,6 +18,7 @@ export default class GaleryPresenter {
         return;
       }
       
+      this.#view.hideLoadingGalery();
       this.#view.getGalerySuccessfully(response.data);
     } catch (error) {
       console.error('getGalery: error:', error);

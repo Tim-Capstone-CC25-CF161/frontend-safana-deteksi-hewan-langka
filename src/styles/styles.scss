@@ -40,9 +40,25 @@ nav {
 }
 
 .galery-item-card {
+  width: 25rem;
+  max-height: 30rem;
   cursor: pointer;
 }
 
 .galery-item-card:hover {
   transform: scale(1.05);
+}
+
+#galery-loading {
+  height: 75vh;
+}
+
+.loading-image-galery {
+  width: 25rem;
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eae9e9;
+  color: #a9a9a9;
 }
