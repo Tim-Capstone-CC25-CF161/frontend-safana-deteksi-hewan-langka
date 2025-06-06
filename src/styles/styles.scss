@@ -62,3 +62,17 @@ nav {
   background-color: #eae9e9;
   color: #a9a9a9;
 }
+
+.img-popup-map,
+.loading-image-popup {
+  width: 12rem;
+  height: 12rem;
+}
+
+.loading-image-popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eae9e9;
+  color: #a9a9a9;
+}

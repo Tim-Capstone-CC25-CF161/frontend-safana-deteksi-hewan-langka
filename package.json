@@ -37,6 +37,7 @@
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
     "sweetalert2": "^11.21.0"
   }
 }

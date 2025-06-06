@@ -261,6 +261,11 @@ export default class GaleryPage {
       </p>
     `;
 
+    Toast.fire({
+      icon: "error",
+      title: 'Terjadi kesalahan saat memuat galeri!',
+    });
+
     console.error(error);
   }
 }

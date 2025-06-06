@@ -2,6 +2,9 @@
 import '../styles/styles.scss';
 import 'leaflet/dist/leaflet.css';
 
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+
 import App from './pages/app';
 import Camera from './utils/camera';
 

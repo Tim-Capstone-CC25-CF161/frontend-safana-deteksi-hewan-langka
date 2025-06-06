@@ -1,4 +1,14 @@
-import { map, tileLayer, Icon, icon, marker, popup, latLng, control } from 'leaflet';
+import L, {
+  map, 
+  tileLayer,
+  Icon,
+  icon,
+  marker,
+  popup,
+  latLng,
+  control
+} from 'leaflet';
+import 'leaflet.markercluster';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -7,6 +17,7 @@ import CONFIG from '../config';
 export default class Map {
   #zoom = 5;
   #map = null;
+  #markerCluster = null;
 
   static async getPlaceNameByCoordinate(latitude, longitude) {
     try {
@@ -109,12 +120,15 @@ export default class Map {
 
     this.#map = map(document.querySelector(selector), {
       zoom: this.#zoom,
-      scrollWheelZoom: false,
+      scrollWheelZoom: true,
       layers: [tileOsm],
       ...options,
     });
 
     this.#map.addControl(layerControl);
+
+    this.#markerCluster = L.markerClusterGroup();
+    this.#map.addLayer(this.#markerCluster);
   }
 
   changeCamera(coordinate, zoomLevel = null) {
@@ -150,6 +164,11 @@ export default class Map {
       throw new Error('markerOptions must be an object');
     }
 
+    if (!this.#markerCluster) {
+      this.#markerCluster = L.markerClusterGroup();
+      this.#map.addLayer(this.#markerCluster);
+    }
+
     const newMarker = marker(coordinates, {
       icon: this.createIcon(),
       ...markerOptions,
@@ -168,7 +187,7 @@ export default class Map {
       newMarker.bindPopup(newPopup);
     }
 
-    newMarker.addTo(this.#map);
+    this.#markerCluster.addLayer(newMarker);
     return newMarker;
   }
 
