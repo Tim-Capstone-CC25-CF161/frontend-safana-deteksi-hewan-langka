@@ -1,4 +1,10 @@
+import BksdaPresenter from './bksda-presenter';
+import * as BksdaModel from '../../data/bksda-model';
+import Toast from '../components/toats'
+
 export default class BksdaPage {
+  #presenter = null;
+
   async render() {
     return `
       <section class="background-gradient d-flex justify-content-center min-vh-100 pt-5 pt-lg-4">
@@ -6,14 +12,11 @@ export default class BksdaPage {
           <div class="card-header bg-transparent border-0">
             <h1 class="fs-1 text-center">List BKSDA</h1>
           </div>
-          <div id="list-bksda-filter" class="card-header bg-transparent border-0 d-flex justify-content-center gap-3">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Cari berdasarkan nama atau alamat" aria-label="Cari berdasarkan nama atau alamat" id="search" aria-describedby="button-addon-search">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon-search">Cari</button>
-            </div>
-            <button title="Gunakan lokasi saat ini" type="button" class="btn btn-primary" id="button-use-current-location">
-              <i class="bi bi-geo-alt-fill"></i>
-            </button>
+          <div id="bksda-loading" class="d-flex align-items-center justify-content-center h-100">
+            <p class="loading-text fs-1">
+              <i class="bi bi-gear loader-icon me-2 w-auto h-auto"></i>
+              <span>Memuat Data BKSDA...</span>
+            </p>
           </div>
           <div id="list-bksda-body" class="card-body d-flex flex-wrap justify-content-center gap-4"></div>
         </article>
@@ -22,18 +25,48 @@ export default class BksdaPage {
   }
 
   async afterRender() {
+    this.#presenter = new BksdaPresenter({
+      view: this,
+      model: BksdaModel,
+    });
+
+    await this.#presenter.getDataAllBksda();
+  }
+
+  getDataAllBksdaSuccessfully(data) {
     const bodyListBksda = document.getElementById('list-bksda-body');
-    const templateCard = `
+
+    bodyListBksda.innerHTML = data.map(bksda => `
       <div class="card shadow-sm" style="width: 20rem;">
-        <div class="card-body">
-          <h5 class="card-title">BKSDA {index}</h5>
-          <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, sapiente.</p>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h5 class="card-title">BKSDA Provinsi ${bksda.nama}</h5>
+          <p class="card-text">
+            <i class="bi bi-telephone me-1"></i> ${bksda.nomor_wa}
+          </p>
         </div>
       </div>
+    `).join('');
+  }
+  
+  hideLoading() {
+    const bksdaLoading = document.getElementById('bksda-loading');
+    bksdaLoading.classList.add('d-none');
+  }
+
+  getDataAllBksdaFailed(error) {
+    const bksdaLoading = document.getElementById('bksda-loading');
+    bksdaLoading.innerHTML = `
+      <p class="loading-text fs-1 text-danger">
+        <i class="bi bi-exclamation-triangle-fill me-2 w-auto h-auto"></i>
+        <span>Gagal Memuat Data BKSDA...</span>
+      </p>
     `;
 
-    for (let index = 0; index < 15; index++) {
-      bodyListBksda.innerHTML += templateCard.replace('{index}', index + 1);
-    }
+    Toast.fire({
+      icon: "error",
+      title: 'Terjadi kesalahan saat memuat BKSDA!',
+    });
+
+    console.error(error);
   }
 }

@@ -84,6 +84,7 @@ export default class GaleryPage {
           <h5 class="card-title text-center text-capitalize w-100 bg-dark text-light border">${data.nama_hewan.replaceAll('_', ' ')}</h5>
         </div>
       </div>
+
       <div class="modal fade" id="modalDetailImg${index}" tabindex="-1" aria-labelledby="modalDetailImg${index}Label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
@@ -92,7 +93,27 @@ export default class GaleryPage {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <img src="${CONFIG.BASE_URL + data.image}" class="img-fluid w-100" alt="Gambar ${data.nama_hewan.replaceAll('_', ' ')}">
+              <div class="d-flex flex-column gap-2">
+                <img id="detail-img-${index}" src="${CONFIG.BASE_URL + data.image}" class="img-fluid w-100" alt="Gambar ${data.nama_hewan.replaceAll('_', ' ')}">
+              </div>
+              <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                  <label class="fw-bold" for="textNamaHewan${index}">Nama Hewan:</label>
+                  <p id="textNamaHewan${index}" class="text-muted text-capitalize">${data.nama_hewan.replaceAll('_', ' ')}</p>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="fw-bold" for="textNamaLatin${index}">Nama Latin:</label>
+                  <p id="textNamaLatin${index}" class="text-muted">${data.namaLatin}</p>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="fw-bold" for="textAlamat${index}">Ditemukan Di:</label>
+                  <p id="textAlamat${index}" class="text-muted">${data.address}</p>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="fw-bold" for="textKoordinat${index}">Koordinat:</label>
+                  <p id="textKoordinat${index}" class="text-muted">${data.latitude}, ${data.longitude}</p>
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -121,10 +142,7 @@ export default class GaleryPage {
     
     if (isError) {
       if (loading) {
-        const parent = loading.parentElement;
-
-        parent.removeAttribute('data-bs-toggle');
-        parent.removeAttribute('data-bs-target');
+        const parentDetailImg = document.getElementById(`detail-img-${id}`).parentElement;
 
         loading.classList.remove('d-none');
         loading.innerHTML = `
@@ -132,12 +150,11 @@ export default class GaleryPage {
           <span class="text-danger">Gambar Gagal Dimuat</span>
         `;
 
-        parent.addEventListener('click', () => {
-          Toast.fire({
-            icon: "error",
-            title: 'Gambar Gagal Dimuat',
-          });
-        });
+        parentDetailImg.removeChild(parentDetailImg.firstElementChild);
+        const detailLoading = loading.cloneNode(true);
+        detailLoading.classList.add('w-100');
+        detailLoading.setAttribute('id', `detail-img-${id}`);
+        parentDetailImg.appendChild(detailLoading);
       }
 
       return;
