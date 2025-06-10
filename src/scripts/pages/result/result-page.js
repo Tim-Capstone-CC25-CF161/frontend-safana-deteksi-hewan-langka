@@ -27,15 +27,40 @@ export default class ResultPage {
                 </div>
 
                 <div id="container-aksi" class="mt-5">
-                  <button id="detail-info-button" class="btn btn-info mx-2 my-1">
-                    Lihat Detail Informasi Hewan
+                  <a id="detail-info-button" class="btn btn-primary mx-2 my-1 text-light" href="#">
+                    <i class="bi bi-info-circle me-2"></i> Lihat Detail Informasi Hewan
+                  </a>
+                  <button type="button" id="report-button" class="btn btn-warning mx-2 my-1" data-bs-toggle="modal" data-bs-target="#bksdaTerdekatModal">
+                    <i class="bi bi-geo-alt me-2"></i> Lihat BKSDA Terdekat
                   </button>
-                  <button id="report-button" class="btn btn-warning mx-2 my-1">
-                    Laporkan
-                  </button>
-                  <button id="home-button" class="btn btn-secondary mx-2 my-1">
-                    Kembali ke Menu Home
-                  </button>
+                  <a id="home-button" class="btn btn-secondary mx-2 my-1" href="#/">
+                    <i class="bi bi-house me-2"></i> Kembali ke Halaman Utama
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="bksdaTerdekatModal" tabindex="-1" aria-labelledby="bksdaTerdekatModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="bksdaTerdekatModalLabel">BKSDA Terdekat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="card shadow-sm">
+                      <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title">BKSDA Provinsi <span id="title-bksda-terdekat"></span></h5>
+                        <p class="card-text">
+                          <i class="bi bi-telephone me-1"></i> 
+                          <span id="nomor-bksda-terdekat"></span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -56,14 +81,21 @@ export default class ResultPage {
 
   getPrediksiSuccessfully(response) {
     const resultDetailName = document.getElementById('result-detail-name');
-    const resultDetailProbability = document.getElementById(
-      'result-detail-probability'
-    );
+    const resultDetailProbability = document.getElementById('result-detail-probability');
+    const titleBksdaTerdekat = document.getElementById('title-bksda-terdekat');
+    const nomorBksdaTerdekat = document.getElementById('nomor-bksda-terdekat');
+    const detailInfoButton = document.getElementById('detail-info-button');
 
     resultDetailName.textContent = response.data.class.replaceAll('_', ' ');
     resultDetailProbability.textContent = `Dengan Probabilitas: ${(
       response.data.score * 100
     ).toFixed(1)}%`;
+
+    detailInfoButton.href = `#/hewan/${response.hewan_id}`;
+
+    const dataBksdaTerdekat = response.bksda_terdekat;
+    titleBksdaTerdekat.textContent = dataBksdaTerdekat.nama;
+    nomorBksdaTerdekat.textContent = dataBksdaTerdekat.nomor_wa;
 
     this._drawPrediksi(
       `${CONFIG.BASE_URL}${response.uploaded_image_url}`,

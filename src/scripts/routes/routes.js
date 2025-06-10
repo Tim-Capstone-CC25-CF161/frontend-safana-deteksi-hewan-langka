@@ -2,6 +2,7 @@ import LoginPage from '../pages/auth/login/login-page';
 import RegisterPage from '../pages/auth/register/register-page';
 import BksdaPage from '../pages/bksda/bksda-page';
 import CameraPage from '../pages/camera/camera-page';
+import DetailHewanPage from '../pages/detail-hewan/detail-hewan-page';
 import GaleryPage from '../pages/galery/galery-page';
 import HomePage from '../pages/home/home-page';
 import MapsPage from '../pages/maps/maps-page';
@@ -18,6 +19,7 @@ const routes = {
 
   '/camera': new CameraPage(),
   '/result': new ResultPage(),
+  '/hewan/:id': new DetailHewanPage(),
 };
 
 export default routes;

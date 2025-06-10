@@ -2,10 +2,38 @@ import CONFIG from '../config';
 import { getUserDataLogin } from '../utils/auth';
 
 const ENDPOINTS = {
+  HEWAN_DETAIL: (id) => `${CONFIG.BASE_URL}/hewandilindungi/${id}`,
+  HEWAN_SERUPA: (id) => `${CONFIG.BASE_URL}/hewanidserupa/${id}`,
   PREDIKSI: `${CONFIG.BASE_URL}/predict`,
   GALLERY: `${CONFIG.BASE_URL}/galeri`,
   MAPS: `${CONFIG.BASE_URL}/maps`,
 };
+
+export async function getDetailHewanById(id) {
+  const fetchResponse = await fetch(ENDPOINTS.HEWAN_DETAIL(id), {
+    method: 'GET',
+    credentials: 'include',
+  });
+  const json = await fetchResponse.json();
+
+  return {
+    ...json,
+    ok: fetchResponse.ok,
+  };
+}
+
+export async function getDataHewanSerupa(id) {
+  const fetchResponse = await fetch(ENDPOINTS.HEWAN_SERUPA(id), {
+    method: 'GET',
+    credentials: 'include',
+  });
+  const json = await fetchResponse.json();
+
+  return {
+    ...json,
+    ok: fetchResponse.ok,
+  };
+}
 
 export async function getPrediksi({ file, latitude, longitude }) {
   const userDataLogin = getUserDataLogin();
