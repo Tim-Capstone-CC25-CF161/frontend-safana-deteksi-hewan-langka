@@ -49,10 +49,8 @@ Proyek ini adalah frontend untuk aplikasi web SAFaNa (System Analytics Fauna Nus
 
 ## Project Structure
 
-Proyek starter ini dirancang agar kode tetap modular dan terorganisir.
-
 ```text
-starter-project/
+frontend-safana-deteksi-hewan-langka/
 ├── dist/                   # Compiled files for production
 ├── src/                    # Source project files
 │   ├── public/             # Public files

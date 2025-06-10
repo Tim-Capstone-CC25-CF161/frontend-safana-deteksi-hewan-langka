@@ -52,16 +52,8 @@ export default class GaleryPage {
     await this.#presenter.getDataGalery();
 
     document.querySelectorAll('.modal').forEach((modal) => {
-      modal.addEventListener('shown.bs.modal', () => {
-        console.log(document.activeElement);
-      });
-
       modal.addEventListener('hide.bs.modal', () => {
-        console.log(document.activeElement);
-
         document.getElementById('galery-body').focus();
-
-        console.log(document.activeElement);
       });
     });
   }
@@ -70,77 +62,89 @@ export default class GaleryPage {
     const bodyGalery = document.getElementById('galery-body');
     const data_galery = data_response.data;
 
-    bodyGalery.innerHTML = data_galery.map((data, index) => `
-      <div class="card shadow galery-item-card" data-bs-toggle="modal" data-bs-target="#modalDetailImg${index}">
-        <img id="img-${index}" src="${CONFIG.BASE_URL + data.image}" class="object-fit-cover rounded h-100 img-item-galery d-none" alt="Foto Hewan ${data.nama_hewan}">
-        <div id="loading-image-${index}" class="loading-image-galery">
-          <svg class="loader-icon me-2 w-auto h-auto" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-          </svg>
-          Memuat Gambar...
+    if (data_galery.length > 0) {
+      bodyGalery.innerHTML = data_galery.map((data, index) => `
+        <div class="card shadow galery-item-card" data-bs-toggle="modal" data-bs-target="#modalDetailImg${index}">
+          <img id="img-${index}" src="${CONFIG.BASE_URL + data.image}" class="object-fit-cover rounded h-100 img-item-galery d-none" alt="Foto Hewan ${data.nama_hewan}">
+          <div id="loading-image-${index}" class="loading-image-galery">
+            <svg class="loader-icon me-2 w-auto h-auto" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+              <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+              <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+            </svg>
+            Memuat Gambar...
+          </div>
+          <div class="card-body card-img-overlay d-flex align-items-end justify-content-center">
+            <h5 class="card-title text-center text-capitalize w-100 bg-dark text-light border">${data.nama_hewan.replaceAll('_', ' ')}</h5>
+          </div>
         </div>
-        <div class="card-body card-img-overlay d-flex align-items-end justify-content-center">
-          <h5 class="card-title text-center text-capitalize w-100 bg-dark text-light border">${data.nama_hewan.replaceAll('_', ' ')}</h5>
-        </div>
-      </div>
-
-      <div class="modal fade" id="modalDetailImg${index}" tabindex="-1" aria-labelledby="modalDetailImg${index}Label" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5 text-capitalize" id="modalDetailImg${index}Label">Gambar ${data.nama_hewan.replaceAll('_', ' ')}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="d-flex flex-column gap-2">
-                <img id="detail-img-${index}" src="${CONFIG.BASE_URL + data.image}" class="img-fluid w-100" alt="Gambar ${data.nama_hewan.replaceAll('_', ' ')}">
+  
+        <div class="modal fade" id="modalDetailImg${index}" tabindex="-1" aria-labelledby="modalDetailImg${index}Label" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 text-capitalize" id="modalDetailImg${index}Label">Gambar ${data.nama_hewan.replaceAll('_', ' ')}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="row mt-3">
-                <div class="col-12 col-md-6">
-                  <label class="fw-bold" for="textNamaHewan${index}">Nama Hewan:</label>
-                  <p id="textNamaHewan${index}" class="text-muted text-capitalize">${data.nama_hewan.replaceAll('_', ' ')}</p>
+              <div class="modal-body">
+                <div class="d-flex flex-column gap-2">
+                  <img id="detail-img-${index}" src="${CONFIG.BASE_URL + data.image}" class="img-fluid w-100" alt="Gambar ${data.nama_hewan.replaceAll('_', ' ')}">
                 </div>
-                <div class="col-12 col-md-6">
-                  <label class="fw-bold" for="textNamaLatin${index}">Nama Latin:</label>
-                  <p id="textNamaLatin${index}" class="text-muted">${data.namaLatin}</p>
-                </div>
-                <div class="col-12 col-md-6">
-                  <label class="fw-bold" for="textAlamat${index}">Ditemukan Di:</label>
-                  <p id="textAlamat${index}" class="text-muted">${data.address}</p>
-                </div>
-                <div class="col-12 col-md-6">
-                  <label class="fw-bold" for="textKoordinat${index}">Koordinat:</label>
-                  <p id="textKoordinat${index}" class="text-muted">${data.latitude}, ${data.longitude}</p>
+                <div class="row mt-3">
+                  <div class="col-12 col-md-6">
+                    <label class="fw-bold" for="textNamaHewan${index}">Nama Hewan:</label>
+                    <p id="textNamaHewan${index}" class="text-muted text-capitalize">${data.nama_hewan.replaceAll('_', ' ')}</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="fw-bold" for="textNamaLatin${index}">Nama Latin:</label>
+                    <p id="textNamaLatin${index}" class="text-muted">${data.namaLatin}</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="fw-bold" for="textAlamat${index}">Ditemukan Di:</label>
+                    <p id="textAlamat${index}" class="text-muted">${data.address}</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="fw-bold" for="textKoordinat${index}">Koordinat:</label>
+                    <p id="textKoordinat${index}" class="text-muted">${data.latitude}, ${data.longitude}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <a href="${`#/hewan/${data.hewan_id}`}" class="btn btn-primary btn-lihat-detail text-white">Lihat Detail Hewan</a>
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              <div class="modal-footer">
+                <a href="${`#/hewan/${data.hewan_id}`}" class="btn btn-primary btn-lihat-detail text-white">Lihat Detail Hewan</a>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    `).join('');
-
-    document.querySelectorAll('.img-item-galery').forEach((item, index) => {
-      item.addEventListener('load', () => {
-        this._loadImage(index);
+      `).join('');
+  
+      document.querySelectorAll('.img-item-galery').forEach((item, index) => {
+        item.addEventListener('load', () => {
+          this._loadImage(index);
+        });
+  
+        item.addEventListener('error', () => {
+          this._loadImage(index, true);
+        });
       });
-
-      item.addEventListener('error', () => {
-        this._loadImage(index, true);
+  
+      document.querySelectorAll('.btn-lihat-detail').forEach((item) => {
+        item.addEventListener('click', () => {
+          item.parentElement.querySelector('button').click();
+        });
       });
-    });
+      
+      this._setPagination(data_response);
+    } else {
+      const galeryLoading = document.getElementById('galery-loading');
+      galeryLoading.classList.remove('d-none');
 
-    document.querySelectorAll('.btn-lihat-detail').forEach((item) => {
-      item.addEventListener('click', () => {
-        item.parentElement.querySelector('button').click();
-      });
-    });
-
-    this._setPagination(data_response);
+      galeryLoading.innerHTML = `
+        <p class="loading-text fs-1">
+          <i class="bi bi-exclamation-triangle-fill me-2 w-auto h-auto"></i>
+          <span>Data Galeri Belum Tersedia</span>
+        </p>
+      `;
+    }
   }
 
   _loadImage(id, isError = false) {

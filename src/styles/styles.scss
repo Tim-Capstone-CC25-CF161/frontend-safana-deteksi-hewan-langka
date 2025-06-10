@@ -39,21 +39,25 @@ nav {
   height: fit-content;
 }
 
-.galery-item-card {
+.galery-item-card,
+.riwayat-item-card {
   width: 25rem;
   max-height: 30rem;
   cursor: pointer;
 }
 
-.galery-item-card:hover {
+.galery-item-card:hover,
+.riwayat-item-card:hover {
   transform: scale(1.05);
 }
 
-#galery-loading {
+#galery-loading,
+#riwayat-loading {
   height: 75vh;
 }
 
-.loading-image-galery {
+.loading-image-galery,
+.loading-image-riwayat {
   height: 30rem;
   display: flex;
   align-items: center;
