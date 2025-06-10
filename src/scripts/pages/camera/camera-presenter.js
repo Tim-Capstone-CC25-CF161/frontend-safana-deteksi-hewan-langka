@@ -1,4 +1,4 @@
-export default class HomePresenter {
+export default class CameraPresenter {
   #view;
   #model;
   #prediksiConfig;

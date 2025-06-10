@@ -5,6 +5,7 @@ import { Offcanvas } from 'bootstrap';
 import Swal from 'sweetalert2';
 import { getUserDataLogin, getLogout } from '../utils/auth';
 import {
+  generateLoadingPageTemplate,
   generateAuthenticatedContainerNavbarButtonTemplate,
   generateUnauthenticatedContainerNavbarButtonTemplate
 } from '../templates'
@@ -90,6 +91,9 @@ class App {
   async renderPage() {
     const url = getActiveRoute();
     const page = routes[url];
+
+    this.#content.innerHTML = generateLoadingPageTemplate();
+    document.querySelector("nav").classList.remove("d-none");
 
     const transition = transitionHelper({
       updateDOM: async () => {
