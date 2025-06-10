@@ -15,13 +15,20 @@ export function generateAuthenticatedContainerNavbarButtonTemplate() {
       <button class="btn btn-transparent dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <span id="dropdown-user-name">Nama Pengguna</span>
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu end-0" style="left: auto;">
         <li>
-          <a class="dropdown-item" href="#">Riwayat Pencarian</a>
+          <a class="dropdown-item" href="#/profile">
+            <i class="bi bi-person me-2"></i> Profil Saya
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#/riwayat">
+            <i class="bi bi-clock-history me-2"></i> Riwayat Deteksi
+          </a>
         </li>
         <li>
           <button id="logout-button" class="dropdown-item">
-            Keluar dari Akun
+            <i class="bi bi-box-arrow-right me-2"></i> Keluar dari Akun
           </button>
         </li>
       </ul>

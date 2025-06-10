@@ -48,7 +48,7 @@ class App {
         confirmButtonText: 'Ya',
         cancelButtonText: 'Tidak',
         confirmButtonColor: '#2F1C0E',
-        cancelButtonColor: '#F9731A',
+        cancelButtonColor: '#D9534F',
       }).then(async (result) => {
         if (result.isConfirmed) {
           Swal.fire({
@@ -78,6 +78,8 @@ class App {
             icon: "success",
             title: 'Anda telah keluar dari akun',
           });
+
+          location.hash = '#/login';
 
           this.#containerNavbarButton.innerHTML = generateUnauthenticatedContainerNavbarButtonTemplate();
         }

@@ -21,4 +21,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     Camera.stopAllStreams();
   });
+
+  window.addEventListener("scroll", function () {
+    const navigasi = document.querySelector("nav");
+  
+    if (window.scrollY > 50) {
+      navigasi.classList.remove("container", "rounded-pill", "mt-lg-5", "mt-sm-3", "m-3");
+    } else {
+      navigasi.classList.add("container", "rounded-pill", "mt-lg-5", "mt-sm-3", "m-3");
+    }
+  });
 });

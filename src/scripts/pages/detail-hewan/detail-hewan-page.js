@@ -15,9 +15,9 @@ export default class DetailHewanPage {
             <h1 class="fs-1 text-center">Detail Hewan</h1>
           </div>
           <div id="detail-hewan-loading" class="d-flex align-items-center justify-content-center h-100">
-            <p class="loading-text fs-1">
+            <p class="loading-text fs-1 p-1 d-flex align-items-center flex-wrap">
               <i class="bi bi-gear loader-icon me-2 w-auto h-auto"></i>
-              <span>Memuat Data Detail Hewan...</span>
+              <span class="text-center">Memuat Data Detail Hewan...</span>
             </p>
           </div>
           <div id="result-body" class="card-body">
@@ -139,7 +139,7 @@ export default class DetailHewanPage {
         carouselInner.innerHTML += `
           <div class="carousel-item ${index === 0 ? 'active' : ''}">
             <div class="d-flex align-items-center justify-content-center bg-light" style="height: 500px;">
-              <img src="${image}" class="object-fit-cover d-block w-100 h-100" style="filter: blur(10px);" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
+              <img src="${image}" class="object-fit-cover d-block w-100 h-100" style="filter: blur(15px);" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
               <div class="card-img-overlay d-flex align-items-center justify-content-center">
                 <img src="${image}" class="d-block mw-100 mh-100" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
               </div>

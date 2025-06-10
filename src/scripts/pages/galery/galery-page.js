@@ -116,7 +116,7 @@ export default class GaleryPage {
               </div>
             </div>
             <div class="modal-footer">
-              <a href="${`/#/hewan/${data.hewan_id}`}" class="btn btn-primary btn-lihat-detail text-white">Lihat Detail Hewan</a>
+              <a href="${`#/hewan/${data.hewan_id}`}" class="btn btn-primary btn-lihat-detail text-white">Lihat Detail Hewan</a>
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
