@@ -80,8 +80,8 @@ export default class DetailHewanPage {
 
           <div id="detail-hewan-footer" class="card-footer bg-transparent border-0">
             <div id="container-aksi" class="mt-5 d-flex justify-content-center">
-              <a id="home-button" class="btn btn-secondary mx-2 my-1" href="#/">
-                <i class="bi bi-house me-2"></i> Kembali ke Halaman Utama
+              <a id="back-button" class="btn btn-secondary mx-2 my-1" href="#/">
+                <i class="bi bi-arrow-left me-2"></i> Kembali
               </a>
             </div>
           </div>
@@ -102,11 +102,15 @@ export default class DetailHewanPage {
     this.#resultBody = document.getElementById('result-body');
 
     await this.#presenter.showDetailHewan();
+
+    document.getElementById('back-button').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      window.history.back();
+    });
   }
 
   async getDetailHewanSuccess(data) {
-    console.log('data:', data);
-    
     const textNamaHewan = document.getElementById('textNamaHewan');
     const textStatusKonservasi = document.getElementById('textStatusKonservasi');
     const textHabitatAsli = document.getElementById('textHabitatAsli');

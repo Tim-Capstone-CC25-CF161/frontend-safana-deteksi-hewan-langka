@@ -1,4 +1,5 @@
 import CONFIG from '../config';
+import funFacts from './funfact-statis-model';
 import { getUserDataLogin } from '../utils/auth';
 
 const ENDPOINTS = {
@@ -9,6 +10,10 @@ const ENDPOINTS = {
   GALLERY: `${CONFIG.BASE_URL}/galeri`,
   MAPS: `${CONFIG.BASE_URL}/maps`,
 };
+
+export function getOneRandomFunFact() {
+  return funFacts[Math.floor(Math.random() * funFacts.length)];
+}
 
 export async function getDetailHewanById(id) {
   const fetchResponse = await fetch(ENDPOINTS.HEWAN_DETAIL(id), {

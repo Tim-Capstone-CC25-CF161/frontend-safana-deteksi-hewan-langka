@@ -29,4 +29,9 @@ export default class HomePresenter {
       this.#view.prediksiFailed(error.message);
     }
   }
+
+  async getFunfact() {
+    const data = this.#model.getOneRandomFunFact();
+    this.#view.setupModal(data);
+  }
 }
