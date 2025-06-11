@@ -34,5 +34,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       navigasi.classList.add("container", "rounded-pill", "mt-lg-5", "mt-sm-3", "m-3");
     }
+
   });
 });
