@@ -135,8 +135,6 @@ export default class CameraPage {
 
     this.#buttonSubmit.onclick = async (e) => {
       e.preventDefault();
-      console.log(this.#latitude, this.#longitude);
-      
       const file = this.#takenPhoto;
       const latitude = this.#latitude;
       const longitude = this.#longitude;
@@ -145,7 +143,9 @@ export default class CameraPage {
     };
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
+    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl, {
+      trigger: 'hover'
+    }));
   }
 
   _setupCamera() {

@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   await registerServiceWorker();
 
   window.addEventListener('hashchange', async () => {
+    document.querySelectorAll(".tooltip").forEach((tooltip) => tooltip.remove());
+
     await app.renderPage();
     
     Camera.stopAllStreams();

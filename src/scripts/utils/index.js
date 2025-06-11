@@ -35,13 +35,13 @@ export function isServiceWorkerAvailable() {
  
 export async function registerServiceWorker() {
   if (!isServiceWorkerAvailable()) {
-    console.log('Service Worker API unsupported');
+    console.error('Service Worker API unsupported');
     return;
   }
  
   try {
     await navigator.serviceWorker.register('/sw.bundle.js');
   } catch (error) {
-    console.log('Failed to install service worker:', error);
+    console.error('Failed to install service worker:', error);
   }
 }
