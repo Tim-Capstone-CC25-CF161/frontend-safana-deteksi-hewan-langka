@@ -48,15 +48,17 @@ export default class ResultPage {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <div class="card shadow-sm">
-                      <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title">BKSDA Provinsi <span id="title-bksda-terdekat"></span></h5>
-                        <p class="card-text">
-                          <i class="bi bi-telephone me-1"></i> 
-                          <span id="nomor-bksda-terdekat"></span>
-                        </p>
+                    <a id="link-bksda-terdekat" class="text-decoration-none" href="tel:">
+                      <div class="card shadow-sm">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                          <h5 class="card-title">BKSDA Provinsi <span id="title-bksda-terdekat"></span></h5>
+                          <p class="card-text">
+                            <i class="bi bi-telephone me-1"></i> 
+                            <span id="nomor-bksda-terdekat"></span>
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -82,6 +84,7 @@ export default class ResultPage {
   getPrediksiSuccessfully(response) {
     const resultDetailName = document.getElementById('result-detail-name');
     const resultDetailProbability = document.getElementById('result-detail-probability');
+    const linkBksdaTerdekat = document.getElementById('link-bksda-terdekat');
     const titleBksdaTerdekat = document.getElementById('title-bksda-terdekat');
     const nomorBksdaTerdekat = document.getElementById('nomor-bksda-terdekat');
     const detailInfoButton = document.getElementById('detail-info-button');
@@ -96,6 +99,7 @@ export default class ResultPage {
     const dataBksdaTerdekat = response.bksda_terdekat;
     titleBksdaTerdekat.textContent = dataBksdaTerdekat.nama;
     nomorBksdaTerdekat.textContent = dataBksdaTerdekat.nomor_wa;
+    linkBksdaTerdekat.href = `tel:${dataBksdaTerdekat.nomor_wa}`;
 
     this._drawPrediksi(
       `${CONFIG.BASE_URL}${response.uploaded_image_url}`,

@@ -76,9 +76,9 @@ export default class MapsPage {
                 Memuat Gambar...
               </div>
               <h2 class="popup-title fs-6 mb-2 text-capitalize">${deteksi.nama_hewan.replaceAll('_', ' ')}</h2>
-              <button class="btn btn-sm btn-link ps-0">
+              <a href="#/hewan/${deteksi.hewan_id}" class="btn btn-sm btn-link ps-0">
                 Lihat Detail Hewan <i class="bi bi-chevron-double-right"></i>
-              </button>
+              </a>
             </div>
           `,
         };

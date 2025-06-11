@@ -1,6 +1,7 @@
 import CameraPresenter from "./camera-presenter";
 import * as HewanModel from "../../data/hewan-model";
 import * as PrediksiConfig from '../../utils/prediction';
+import { Tooltip } from "bootstrap";
 import Camera from "../../utils/camera";
 import Map from "../../utils/maps";
 import Swal from "sweetalert2";
@@ -20,15 +21,15 @@ export default class CameraPage {
 
   async render() {
     return `
-      <section class="background-gradient d-flex justify-content-center min-vh-100">
+      <section class="background-gradient d-flex justify-content-center align-items-center min-vh-100">
         <div class="d-none">
           <label for="kamera-select" class="form-label">Pilih Kamera</label>
           <select id="kamera-select" class="form-select" readonly></select>
         </div>
 
-        <article class="card bg-cream container-fluid m-3 m-md-5 shadow-lg p-2 p-lg-5">
-          <div id="result-body" class="card-body">
-            <video id="kamera-video" class="new-form-kamera-video w-100 h-100">
+        <article id="container-camera" class="bg-cream container-fluid m-3 m-md-5 shadow-lg p-2 p-lg-5 row">
+          <div id="result-body" class="p-1 col-12 col-md-10">
+            <video id="kamera-video" class="new-form-kamera-video h-100 w-100">
               Video stream not available.
             </video>
 
@@ -37,22 +38,27 @@ export default class CameraPage {
             <p id="new-form-photo-preview-title" class="d-none"></p>
             <div id="photo-taken-preview" class="new-form-photo-outputs d-none"></div>
           </div>
-          <div class="card-footer text-center bg-transparent gap-2 d-flex ">
-            <a id="back-button" class="btn btn-icon btn-light w-100 fw-bolder" href="#/">
-              <i class="bi bi-arrow-left"></i>
-            </a>
-            <button id="kamera-take-button" class="btn btn-icon btn-primary w-100 text-light fw-bolder" type="button">
-              <i class="bi bi-camera"></i>
-            </button>
-            <button id="submit-button" class="btn btn-icon btn-success w-100 fw-bolder d-none" type="button" disabled>
-              <i class="bi bi-check-circle"></i>
-            </button>
-            <button id="change-camera" class="btn btn-icon btn-secondary w-100 fw-bolder" type="button">
-              <i class="bi bi-arrow-repeat"></i>
-            </button>
-            <button id="take-again-photo-button" class="btn btn-icon btn-danger w-100 fw-bolder d-none" type="button" disabled>
-              <i class="bi bi-arrow-counterclockwise"></i>
-            </button>
+
+          <div class="col-12 col-md-2 d-flex d-md-block m-0 m-md-auto flex-column-reverse">
+              <div class="text-center bg-transparent gap-3 row ms-md-1">
+                <a id="back-button" class="btn btn-icon btn-light fw-bolder col col-md-12 py-md-5" href="#/" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Batal dan Kembali">
+                  <i class="bi bi-arrow-left fs-2"></i>
+                </a>
+                <button id="kamera-take-button" class="btn btn-icon btn-primary text-light fw-bolder col col-md-12 py-md-5" type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ambil Foto">
+                  <i class="bi bi-camera fs-2"></i>
+                </button>
+                <button id="submit-button" class="btn btn-icon btn-success fw-bolder col col-md-12 py-md-5 d-none" type="button" disabled data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Unggah dan Proses Foto">
+                  <i class="bi bi-check-circle fs-2"></i>
+                </button>
+                <button id="change-camera" class="btn btn-icon btn-secondary fw-bolder col col-md-12 py-md-5" type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ganti Kamera">
+                  <i class="bi bi-arrow-repeat fs-2"></i>
+                </button>
+                <button id="take-again-photo-button" class="btn btn-icon btn-danger fw-bolder col col-md-12 py-md-5 d-none" type="button" disabled data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ulangi Foto">
+                  <i class="bi bi-arrow-counterclockwise fs-2"></i>
+                </button>
+              </div>
+              <hr class="d-block d-md-none">
+            </div>
           </div>
         </article>
       </section>
@@ -137,6 +143,9 @@ export default class CameraPage {
 
       await this.#presenter.getPrediksi({ file, latitude, longitude });
     };
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl));
   }
 
   _setupCamera() {

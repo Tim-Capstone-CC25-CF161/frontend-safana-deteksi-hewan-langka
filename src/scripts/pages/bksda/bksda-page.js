@@ -37,14 +37,16 @@ export default class BksdaPage {
     const bodyListBksda = document.getElementById('list-bksda-body');
 
     bodyListBksda.innerHTML = data.map(bksda => `
-      <div class="card shadow-sm" style="width: 20rem;">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <h5 class="card-title">BKSDA Provinsi ${bksda.nama}</h5>
-          <p class="card-text">
-            <i class="bi bi-telephone me-1"></i> ${bksda.nomor_wa}
-          </p>
+      <a href="tel:${bksda.nomor_wa}" class="text-decoration-none">
+        <div class="card shadow-sm h-100" style="width: 20rem;">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">BKSDA Provinsi ${bksda.nama}</h5>
+            <p class="card-text">
+              <i class="bi bi-telephone me-1"></i> ${bksda.nomor_wa}
+            </p>
+          </div>
         </div>
-      </div>
+      </a>
     `).join('');
   }
   
