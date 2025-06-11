@@ -8,6 +8,8 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import App from './pages/app';
 import Camera from './utils/camera';
 
+import { registerServiceWorker } from './utils';
+
 document.addEventListener('DOMContentLoaded', async () => {
   const app = new App({
     content: document.querySelector('#main-content'),
@@ -15,6 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadingMain: document.querySelector('#main-loading-container'),
   });
   await app.renderPage();
+
+  await registerServiceWorker();
 
   window.addEventListener('hashchange', async () => {
     await app.renderPage();

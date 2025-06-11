@@ -7,6 +7,7 @@ import DetailHewanPage from '../pages/detail-hewan/detail-hewan-page';
 import GaleryPage from '../pages/galery/galery-page';
 import HomePage from '../pages/home/home-page';
 import MapsPage from '../pages/maps/maps-page';
+import NotFoundPage from '../pages/not-found/not-found-page';
 import ResultPage from '../pages/result/result-page';
 import RiwayatPage from '../pages/riwayat/riwayat-page';
 
@@ -26,6 +27,8 @@ const routes = {
   '/camera': new CameraPage(),
   '/result': new ResultPage(),
   '/hewan/:id': new DetailHewanPage(),
+
+  '/not-found': new NotFoundPage(),
 };
 
 export default routes;

@@ -1,0 +1,165 @@
+{
+  "id": "#/",
+  "start_url": "#/",
+  "scope": "/",
+  "name": "System Analytics Fauna Nusantara",
+  "short_name": "SAFaNa",
+  "description": "Aplikasi yang dapat membantu Anda mengetahui jenis fauna yang ditemukan di Indonesia terutama hewan terancam punah.",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#EC7925",
+  "icons": [
+    {
+      "src": "images/icons/icon-x48.png",
+      "type": "image/png",
+      "sizes": "48x48",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/icon-x72.png",
+      "type": "image/png",
+      "sizes": "72x72",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/icon-x96.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/icon-x144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icons/icon-x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/icons/icon-x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshots/SafanaApp_001.png",
+      "sizes": "1920x1048",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/SafanaApp_002.png",
+      "sizes": "1920x1048",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/SafanaApp_003.png",
+      "sizes": "1920x1048",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/SafanaApp_004.png",
+      "sizes": "1920x1048",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/SafanaApp_005.png",
+      "sizes": "1920x1048",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshots/SafanaAppM_001.png",
+      "sizes": "429x875",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/SafanaAppM_002.png",
+      "sizes": "429x875",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/SafanaAppM_003.png",
+      "sizes": "429x875",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/SafanaAppM_004.png",
+      "sizes": "429x875",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "images/screenshots/SafanaAppM_005.png",
+      "sizes": "429x875",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Deteksi Hewan",
+      "short_name": "Deteksi",
+      "description": "Mendeteksi hewan dengan menggunakan kamera.",
+      "url": "/?source=pwa#/camera",
+      "icons": [
+        {
+          "src": "images/icons/icon-camera-x97.png",
+          "type": "image/png",
+          "sizes": "97x97"
+        }
+      ]
+    },
+    {
+      "name": "Sebaran Hewan",
+      "short_name": "Sebaran",
+      "description": "Lihat daftar sebaran hewan yang terdeteksi.",
+      "url": "/?source=pwa#/maps",
+      "icons": [
+        {
+          "src": "images/icons/icon-maps-x97.png",
+          "type": "image/png",
+          "sizes": "97x97"
+        }
+      ]
+    },
+    {
+      "name": "Galeri Hewan",
+      "short_name": "Galeri",
+      "description": "Lihat daftar foto hewan yang terdeteksi.",
+      "url": "/?source=pwa#/galery",
+      "icons": [
+        {
+          "src": "images/icons/icon-gallery-x97.png",
+          "type": "image/png",
+          "sizes": "97x97"
+        }
+      ]
+    },
+    {
+      "name": "List BKSDA",
+      "short_name": "BKSDA",
+      "description": "Lihat daftar BKSDA yang tersedia.",
+      "url": "/?source=pwa#/bksda",
+      "icons": [
+        {
+          "src": "images/icons/icon-bksda-x97.png",
+          "type": "image/png",
+          "sizes": "97x97"
+        }
+      ]
+    }
+  ]
+}

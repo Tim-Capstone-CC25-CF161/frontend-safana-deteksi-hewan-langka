@@ -92,6 +92,12 @@ class App {
     const url = getActiveRoute();
     const page = routes[url];
 
+    if (!page) {
+      location.hash = '/not-found';
+
+      return;
+    }
+
     this.#content.innerHTML = generateLoadingPageTemplate();
     document.querySelector("nav").classList.remove("d-none");
 
