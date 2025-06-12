@@ -188,24 +188,22 @@ export default class HomePage {
 
   _showModalFunfact(body) {
     const checkSessionStorage = sessionStorage.getItem('showModalFunfact');
-
-    if (checkSessionStorage !== 'true') {
-    }
-
     const isMobile = window.innerWidth <= 768;
 
-    Swal.fire({
-      title: 'Tahukah Kamu?',
-      html: body,
-      draggable: isMobile ? false : true,
-      showConfirmButton: false,
-      showCancelButton: true,
-      cancelButtonText: 'Tutup',
-      customClass: {
-        cancelButton: 'btn btn-outline-secondary',
-        container: 'bg-m-white',
-      }
-    });
+    if (checkSessionStorage !== 'true') {
+      Swal.fire({
+        title: 'Tahukah Kamu?',
+        html: body,
+        draggable: isMobile ? false : true,
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: 'Tutup',
+        customClass: {
+          cancelButton: 'btn btn-outline-secondary',
+          container: 'bg-m-white',
+        }
+      });
+    }
 
     sessionStorage.setItem('showModalFunfact', 'true');
   }
