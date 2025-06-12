@@ -55,6 +55,10 @@ frontend-safana-deteksi-hewan-langka/
 ├── src/                    # Source project files
 │   ├── public/             # Public files
 │   ├── scripts/            # Source JavaScript files
+|   |   ├── data/           # Source for model/data files
+|   |   ├── pages/          # Source for page files (include view and presenter)
+|   |   ├── routes/         # Source for route related files
+|   |   ├── utils/          # Source for global utility function files
 │   │   └── index.js        # Main JavaScript entry file
 │   ├── styles/             # Source CSS files
 │   │   └── styles.css      # Main CSS file
