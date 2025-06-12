@@ -16,6 +16,12 @@ $bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
   }
 }
 
+@media screen and (max-width: 650px) {
+  .bg-m-white {
+    background-color: white !important;
+  }
+}
+
 nav {
   view-transition-name: header;
 }

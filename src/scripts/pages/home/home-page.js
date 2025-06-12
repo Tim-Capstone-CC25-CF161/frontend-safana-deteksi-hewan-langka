@@ -62,9 +62,6 @@ export default class HomePage {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div id="carouselFunfact" class="carousel slide carousel-fade">
-                <div class="carousel-inner"></div>
-              </div>
             </div>
             <div class="modal-footer">
               <button class="btn btn-light" type="button" data-bs-target="#carouselFunfact" data-bs-slide="prev">
@@ -189,44 +186,73 @@ export default class HomePage {
     });
   }
 
-  _showModalFunfact() {
+  _showModalFunfact(body) {
     const checkSessionStorage = sessionStorage.getItem('showModalFunfact');
 
     if (checkSessionStorage !== 'true') {
-      const modalFunfact = new Modal('#modalFunfact', {});
-      modalFunfact.show();
-
-      sessionStorage.setItem('showModalFunfact', 'true');
     }
+
+    const isMobile = window.innerWidth <= 768;
+
+    Swal.fire({
+      title: 'Tahukah Kamu?',
+      html: body,
+      draggable: isMobile ? false : true,
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'Tutup',
+      customClass: {
+        cancelButton: 'btn btn-outline-secondary',
+        container: 'bg-m-white',
+      }
+    });
+
+    sessionStorage.setItem('showModalFunfact', 'true');
   }
 
   setupModal(data) {
-    const carouselFunfact = document.getElementById('carouselFunfact');
-    const carouselInner = carouselFunfact.querySelector('.carousel-inner');
-
-    carouselInner.innerHTML = data.fun_facts.map((funFact, index) => `
-      <div class="carousel-item ${index === 0 ? 'active' : ''}">
-        <div class="d-flex align-items-center justify-content-center bg-light" style="height: 400px;">
-          <img src="${data.gambar_url}" class="object-fit-cover d-block w-100 h-100" style="filter: blur(15px);" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
-          <div class="card-img-overlay d-flex align-items-center justify-content-center p-3">
-            <img src="${data.gambar_url}" class="d-block mw-100 mh-100" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
-
-            <div class="card-img-overlay d-flex align-items-end justify-content-center">
-              <div class="card w-100 rounded-top rounded-bottom-0 ">
-                <div class="card-body">
-                  <h5 class="card-title fw-bold">${data.nama} <i class="fw-light">(${data.nama_ilmiah})</i></h5>
-                  <q class="card-text" cite="${data.sumber}">
-                    ${funFact}
-                  </q>
-                </div>
-              </div>
-            </div>
-          </div>
+    const bodyModal = `
+      <div class="d-flex card align-items-center justify-content-center bg-light mt-3" style="height: 27vh;">
+        <img src="${data.gambar_url}" class="object-fit-cover d-block w-100 h-100" style="filter: blur(15px);" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
+        <div class="card-img-overlay d-flex align-items-center justify-content-center w-100">
+          <img src="${data.gambar_url}" class="d-block mw-100 mh-100" alt="Gambar Hewan" onerror="this.onerror=null; this.src='https://placehold.co/700x500?text=Gambar%20Tidak%20Ditemukan';">
         </div>
       </div>
-    `).join('');
+      <div id="carouselFunfact" class="carousel slide">
+        <div class="carousel-inner">
+          ${
+            data.fun_facts.map((funFact, index) => `
+              <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                <div class="card w-100 rounded-top mt-3">
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold">${data.nama} <i class="fw-light">(${data.nama_ilmiah})</i></h5>
+                    <q class="card-text" cite="${data.sumber}">
+                      ${funFact}
+                    </q>
+                  </div>
+                </div>
+              </div>
+            `).join('')
+          }
+        </div>
+        <div class="carousel-indicators position-static mt-4">
+          ${data.fun_facts.map((_, index) => `
+            <button type="button" data-bs-target="#carouselFunfact" data-bs-slide-to="${index}" class="btn btn-sm border-0 h-0 bg-primary btn-primary p-0 ${index === 0 ? 'active' : ''}" style="width: 10px; height: 10px;" aria-label="Slide ${index + 1}" aria-current="${index === 0 ? 'true' : 'false'}"></button>
+          `).join('')}
+        </div>
+      </div>
 
-    this._showModalFunfact();
+      <div class="d-flex flex-wrap justify-content-between mt-3">
+        <button class="btn btn-light" type="button" data-bs-target="#carouselFunfact" data-bs-slide="prev">
+          <i class="bi bi-arrow-left"></i> Sebelumnya
+        </button>
+        <button class="btn btn-primary text-light" type="button" data-bs-target="#carouselFunfact" data-bs-slide="next">
+          Selanjutnya <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    `;
+
+    this._showModalFunfact(bodyModal);
   }
 
   prediksiSuccessfully() {
