@@ -15,13 +15,13 @@ export default class ResultPage {
           </div>
           <div id="result-body" class="card-body">
             <div class="row justify-content-center align-items-center mt-4">
-              <div class="col-12 col-md-6">
+              <div id="canvas-container" class="col-12 col-md-6">
                 <canvas id="canvas" class="w-100"></canvas>
               </div>
 
               <div class="col-12 col-md-6 text-center">
                 <div id="result-detail">
-                  <h2>Berdasarkan hasil deteksi kami, kemungkinan hewan yang terdeteksi adalah:</h2>
+                  <h2 id="result-detail-title">Berdasarkan hasil deteksi kami, kemungkinan hewan yang terdeteksi adalah:</h2>
                   <h2 id="result-detail-name" class="fs-1 my-5 text-capitalize">Anoa</h2>
                   <p id="result-detail-probability" class="fs-5 text-center">Dengan Probabilitas: 0%</p>
                 </div>
@@ -82,16 +82,45 @@ export default class ResultPage {
   }
 
   getPrediksiSuccessfully(response) {
+    const resultDetailTitle = document.getElementById('result-detail-title');
     const resultDetailName = document.getElementById('result-detail-name');
     const resultDetailProbability = document.getElementById('result-detail-probability');
     const linkBksdaTerdekat = document.getElementById('link-bksda-terdekat');
     const titleBksdaTerdekat = document.getElementById('title-bksda-terdekat');
+    const canvasContainer = document.getElementById('canvas-container');
     const nomorBksdaTerdekat = document.getElementById('nomor-bksda-terdekat');
     const detailInfoButton = document.getElementById('detail-info-button');
+    const reportButton = document.getElementById('report-button');
 
-    resultDetailName.textContent = response.data.class.replaceAll('_', ' ');
+    let isNonDefined = false;
+    let namaHewan = 'Tidak diketahui';
+    let probabilitas = 0;
+
+    if (response.data.length > 0) {
+      if (response.data[0].animal_name) {
+        namaHewan = response.data[0].animal_name.replaceAll('_', ' ');
+        probabilitas = response.data[0].confidence * 100;
+      }
+    } else if (response.data.class) {
+      namaHewan = response.data.class.replaceAll('_', ' ');
+      probabilitas = response.data.score * 100;
+    }
+
+    if (namaHewan === 'Tidak diketahui') {
+      isNonDefined = true;
+    }
+
+    if (isNonDefined) {
+      resultDetailTitle.textContent = 'Berdasarkan hasil deteksi kami, kemungkinan hewan yang terdeteksi dalam gambar adalah: ';
+      detailInfoButton.classList.add('d-none');
+      reportButton.classList.add('d-none');
+      canvasContainer.classList.add('d-none');
+      resultDetailProbability.classList.add('d-none');
+    }
+
+    resultDetailName.textContent = namaHewan;
     resultDetailProbability.textContent = `Dengan Probabilitas: ${(
-      response.data.score * 100
+      probabilitas
     ).toFixed(1)}%`;
 
     detailInfoButton.href = `#/hewan/${response.hewan_id}`;
@@ -103,7 +132,7 @@ export default class ResultPage {
 
     this._drawPrediksi(
       `${CONFIG.BASE_URL}${response.uploaded_image_url}`,
-      response.data
+      response.data.length > 0 ? response.data[0] : response.data
     );
   }
 
@@ -112,24 +141,31 @@ export default class ResultPage {
     img.onload = async () => {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
+      let color = 'red';
+
+      if ((data.score || data.confidence) > 0.5) {
+        color = 'green';
+      } else {
+        color = 'red';
+        
+      }
 
       canvas.width = img.width;
       canvas.height = img.height;
 
       context.drawImage(img, 0, 0);
+      const [x1, y1, x2, y2] = data.bbox || data.bounding_box;
+      const width = (x2 - x1) * (img.naturalWidth / 640);
+      const height = (y2 - y1) * (img.naturalHeight / 640);
 
-      const [x1, y1, x2, y2] = data.bbox;
-      const width = x2 - x1;
-      const height = y2 - y1;
-
-      context.strokeStyle = 'red';
+      context.strokeStyle = color;
       context.lineWidth = 5;
       context.strokeRect(x1, y1, width, height);
 
-      context.fillStyle = 'red';
+      context.fillStyle = color;
       context.font = '18px Arial';
       context.fillText(
-        `${data.class} (${(data.score * 100).toFixed(1)}%)`,
+        `${data.class ?? data.animal_name} (${((data.score || data.confidence) * 100).toFixed(1)}%)`,
         x1 + 5,
         y1 + 20
       );
