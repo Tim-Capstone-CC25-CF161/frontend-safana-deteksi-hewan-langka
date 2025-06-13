@@ -155,8 +155,8 @@ export default class ResultPage {
 
       context.drawImage(img, 0, 0);
       const [x1, y1, x2, y2] = data.bbox || data.bounding_box;
-      const width = (x2 - x1) * (img.naturalWidth / 640);
-      const height = (y2 - y1) * (img.naturalHeight / 640);
+      const width = (x2 - x1) * (img.naturalWidth / 560);
+      const height = (y2 - y1) * (img.naturalHeight / 560);
 
       context.strokeStyle = color;
       context.lineWidth = 5;
