@@ -9,6 +9,15 @@ precacheAndRoute(manifest);
 
 registerRoute(
   ({ url }) => {
+    return url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com';
+  },
+  new CacheFirst({
+    cacheName: 'google-fonts',
+  }),
+);
+
+registerRoute(
+  ({ url }) => {
     return url.origin === 'https://upload.wikimedia.org';
   },
   new CacheFirst({

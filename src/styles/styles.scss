@@ -2,6 +2,7 @@ $primary: #F9731A;
 $secondary: #2F1C0E;
 $cream: #FFF5E1;
 
+$enable-negative-margins: true;
 $offcanvas-vertical-height: fit-content;
 $bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
 
@@ -22,6 +23,18 @@ $bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
   }
 }
 
+@media screen and (max-width: 450px) {
+  .rotate-45 {
+    rotate: 45deg;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  #maskot-img-left {
+    margin-left: -8rem !important;
+  }
+}
+
 nav {
   view-transition-name: header;
 }
@@ -39,6 +52,10 @@ nav {
 
 .bg-cream {
   background-color: $cream;
+}
+
+.bg-soft-orange {
+  background-color: #FD853A;
 }
 
 .h-fit-content {
@@ -89,6 +106,25 @@ nav {
 #container-camera {
   width: fit-content;
   height: fit-content;
+}
+
+#maskot-img-left {
+  width: 10rem;
+  height: 10rem;
+  margin-left: -4rem;
+  animation: fade-in-animation 0.5s ease-in-out forwards;
+}
+
+#result-card {
+  animation: fade-in-animation 0.5s ease-in-out forwards;
+}
+
+#result-text-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+#result-text-container::-webkit-scrollbar-thumb {
+  border-radius: 0px;
 }
 
 .fade-in-animation {
