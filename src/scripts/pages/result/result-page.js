@@ -131,7 +131,7 @@ export default class ResultPage {
     linkBksdaTerdekat.href = `tel:${dataBksdaTerdekat.nomor_wa}`;
 
     this._drawPrediksi(
-      `${CONFIG.BASE_URL}${response.uploaded_image_url}`,
+      `${response.is_backup ? CONFIG.BASE_URL_BACKUP : CONFIG.BASE_URL}${response.uploaded_image_url}`,
       response.data.length > 0 ? response.data[0] : response.data
     );
   }

@@ -15,13 +15,22 @@ export default class HomePresenter {
       const response = await this.#model.getPrediksi({ file, latitude, longitude });
 
       if (!response.ok) {
-        console.error('getPrediksi: response:', response);
-        this.#view.prediksiFailed(response.message);
+        const backupResponse = await this.#model.getPrediksiBackup({ file, latitude, longitude });
 
-        return;
+        if (!backupResponse.ok) {
+          console.error('getPrediksi: response:', response);
+          console.error('getPrediksi: backup response:', backupResponse);
+          this.#view.prediksiFailed(response.message || backupResponse.message);
+
+          return;
+        }
+
+        console.warn('getPrediksi: using backup response');
+        this.#prediksiConfig.putHasilPrediksi(backupResponse);
+      } else {
+        this.#prediksiConfig.putHasilPrediksi(response);
       }
 
-      this.#prediksiConfig.putHasilPrediksi(response);
       this.#view.prediksiSuccessfully();
     } catch (error) {
       console.error('getPrediksi: error:', error);

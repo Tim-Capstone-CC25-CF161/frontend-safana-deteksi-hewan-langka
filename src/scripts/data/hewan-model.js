@@ -6,6 +6,7 @@ const ENDPOINTS = {
   HEWAN_DETAIL: (id) => `${CONFIG.BASE_URL}/hewandilindungi/${id}`,
   HEWAN_SERUPA: (id) => `${CONFIG.BASE_URL}/hewanidserupa/${id}`,
   RIWAYAT_DETEKSI: (id) => `${CONFIG.BASE_URL}/histories/${id}`,
+  PREDIKSI_BACKUP: `${CONFIG.BASE_URL_BACKUP}/predict`,
   PREDIKSI: `${CONFIG.BASE_URL}/predict`,
   GALLERY: `${CONFIG.BASE_URL}/galeri`,
   MAPS: `${CONFIG.BASE_URL}/maps`,
@@ -72,6 +73,29 @@ export async function getPrediksi({ file, latitude, longitude }) {
 
   return {
     ...json,
+    ok: fetchResponse.ok,
+  };
+}
+
+export async function getPrediksiBackup({ file, latitude, longitude }) {
+  const userDataLogin = getUserDataLogin();
+
+  const data = new FormData();
+  data.append('file', file);
+  data.append('latitude', latitude);
+  data.append('longitude', longitude);
+  data.append('user_id', userDataLogin?.id || '');
+
+  const fetchResponse = await fetch(ENDPOINTS.PREDIKSI_BACKUP, {
+    method: 'POST',
+    body: data,
+    credentials: 'include',
+  });
+  const json = await fetchResponse.json();
+
+  return {
+    ...json,
+    is_backup: true,
     ok: fetchResponse.ok,
   };
 }
