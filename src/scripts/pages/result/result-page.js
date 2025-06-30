@@ -34,7 +34,7 @@ export default class ResultPage {
               <div id="result-text-container" class="text-dark card-img-overlay p-2 m-0 text-start ms-3 fs-6 overflow-auto">
                 <p id="result-text" class="m-0">
                   Selamat kamu telah menemukan <b id="result-detail-name" class="text-capitalize"></b>.
-                </p> <br>
+                </p> <br> <br>
                 <p id="result-probability" class="m-0">
                   Dengan probabilitas prediksi <b id="result-detail-probability" class="text-capitalize"></b>.
                 </p>

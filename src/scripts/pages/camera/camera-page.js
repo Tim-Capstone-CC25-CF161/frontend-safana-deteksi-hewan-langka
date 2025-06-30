@@ -81,27 +81,33 @@ export default class CameraPage {
     this.#buttonTakeAgainPhoto = document.getElementById('take-again-photo-button');
 
     try {
-      Swal.fire({
-        title: 'Memuat Lokasi...',
-        text: 'Mohon aktifkan lokasi Anda untuk melanjutkan.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        showConfirmButton: false,
-        didOpen: () => {
-          Swal.showLoading();
+      // Swal.fire({
+      //   title: 'Memuat Lokasi...',
+      //   text: 'Mohon aktifkan lokasi Anda untuk melanjutkan.',
+      //   allowOutsideClick: false,
+      //   allowEscapeKey: false,
+      //   showConfirmButton: false,
+      //   didOpen: () => {
+      //     Swal.showLoading();
+      //   }
+      // });
+
+      // const position = await Map.getCurrentPosition();
+      const position = {
+        coords: {
+          latitude: -6.927894,
+          longitude: 107.591834
         }
-      });
+      };
 
-      const position = await Map.getCurrentPosition();
-
-      if (position) {
-        Swal.close();
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+      // if (position) {
+      //   Swal.close();
+        const latitude = position.coords.latitude || -6.927894;
+        const longitude = position.coords.longitude || 107.591834;
 
         this.#latitude = latitude;
         this.#longitude = longitude;
-      }
+      // }
     } catch (error) {
       await Swal.fire({
         icon: 'error',
