@@ -2,6 +2,7 @@ import ResultPresenter from './result-presenter';
 import * as PrediksiConfig from '../../utils/prediction';
 import CONFIG from '../../config';
 import Swal from 'sweetalert2';
+import confetti from 'canvas-confetti';
 
 export default class ResultPage {
   #presenter = null;
@@ -82,7 +83,6 @@ export default class ResultPage {
           </div>
         </div>
       </div>
-    </div>
     `;
     // return `
     //   <section class="background-gradient d-flex justify-content-center min-vh-100 pt-5 pt-lg-4">
@@ -142,6 +142,34 @@ export default class ResultPage {
           this._progressBar(100);
           document.getElementById('result-card').classList.remove('d-none');
           document.getElementById('maskot-img-left').classList.add('rotate-45');
+
+          this._fireConfetti(0.25, {
+            spread: 26,
+            startVelocity: 55,
+          });
+          
+          this._fireConfetti(0.2, {
+            spread: 60,
+          });
+          
+          this._fireConfetti(0.35, {
+            spread: 100,
+            decay: 0.91,
+            scalar: 0.8
+          });
+          
+          this._fireConfetti(0.1, {
+            spread: 120,
+            startVelocity: 25,
+            decay: 0.92,
+            scalar: 1.2
+          });
+          
+          this._fireConfetti(0.1, {
+            spread: 120,
+            startVelocity: 45,
+          });
+
           setTimeout(() => {
             document.getElementById('progress-bar').parentElement.classList.add('d-none');
           }, 1000);
@@ -150,6 +178,19 @@ export default class ResultPage {
 
       document.getElementById('container-aksi').classList.remove('d-none');
       document.getElementById('btn-mulai').classList.add('d-none');
+    });
+  }
+
+  _fireConfetti(particleRatio, opts) {
+    const count = 200;
+    var defaults = {
+      origin: { y: 0.7 }
+    };
+
+    confetti({
+      ...defaults,
+      ...opts,
+      particleCount: Math.floor(count * particleRatio)
     });
   }
 
