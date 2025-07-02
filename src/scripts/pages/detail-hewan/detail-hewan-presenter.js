@@ -4,11 +4,13 @@ export default class DetailHewanPresenter {
   #hewanId;
   #view;
   #apiModel;
+  #hewanStatisModel;
 
-  constructor(hewanId, { view, apiModel }) {
+  constructor(hewanId, { view, apiModel, hewanStatisModel }) {
     this.#hewanId = hewanId;
     this.#view = view;
     this.#apiModel = apiModel;
+    this.#hewanStatisModel = hewanStatisModel;
   }
 
   async showDetailHewan() {
@@ -23,14 +25,19 @@ export default class DetailHewanPresenter {
         return;
       }
 
-      const imageHewan = await this.getImageHewan(response.nama);
+      const imageHewan = await this.getImageHewan(response.nama == 'harimau_sumatera' ? 'harimau_sumatra' : response.nama);
       response.imageHewan = imageHewan;
 
       const hewanSerupa = await this.getHewanSerupa();
       response.hewanSerupa = hewanSerupa;
 
+      const detailHewan = {
+        ...response,
+        ...this.#hewanStatisModel[response.nama == 'harimau_sumatera' ? 'harimau_sumatra' : response.nama],
+      };
+
       this.#view.hideDetailHewanLoading();
-      this.#view.getDetailHewanSuccess(response);
+      this.#view.getDetailHewanSuccess(detailHewan);
     } catch (error) {
       console.error('showDetailHewan: error:', error);
       this.#view.getDetailHewanFailed(error.message);
@@ -56,7 +63,7 @@ export default class DetailHewanPresenter {
         
         if (!tempFilteringImageHewan.includes(imageCheck)) {
           tempFilteringImageHewan.push(imageCheck);
-          filteringImageHewan.push(CONFIG.BASE_URL + mappingImageHewan[i]);
+          filteringImageHewan.push(CONFIG.BASE_URL_BACKUP + mappingImageHewan[i]);
         }
       }
 

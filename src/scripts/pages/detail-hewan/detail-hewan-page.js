@@ -1,6 +1,7 @@
 import DetailHewanPresenter from "./detail-hewan-presenter";
 import { parseActivePathname } from "../../routes/url-parser";
 import * as HewanModel from '../../data/hewan-model';
+import HewanStatisModel from '../../data/detail-hewan-statis-model';
 
 export default class DetailHewanPage {
   #detailHewanLoadingContainer = null;
@@ -45,20 +46,14 @@ export default class DetailHewanPage {
             </div>
           </div>
         </div>
+
+        <p id="textNamaHewan" class="card-text text-start text-capitalize d-none"></p>
         <div id="result-body" class="card-body d-flex flex-column justify-content-center align-items-center">
           <div id="result-detail" class="mt-5 pt-5 d-flex justify-content-center align-items-center d-none mb-5 w-100">
-            <div id="container-isi-detail" class="w-100 px-5 px-md-0">
+            <div id="container-isi-detail" class="w-100 px-0 px-md-5">
               <div id="carouselFunfact" class="carousel slide">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <div class="card w-100 rounded-top">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">Nama Hewan</h5>
-                        <p id="textNamaHewan" class="card-text text-start text-capitalize mt-2"></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
                     <div class="card w-100 rounded-top">
                       <div class="card-body">
                         <h5 class="card-title fw-bold">Status Konservasi</h5>
@@ -109,7 +104,7 @@ export default class DetailHewanPage {
                 </div>
               </div>
 
-              <div class="d-flex flex-wrap justify-content-between mt-3 gap-5">
+              <div class="d-flex flex-wrap justify-content-between mt-3 gap-md-2 gap-1">
                 <button class="btn btn-light" type="button" data-bs-target="#carouselFunfact" data-bs-slide="prev">
                   <i class="bi bi-arrow-left"></i> Sebelumnya
                 </button>
@@ -140,6 +135,7 @@ export default class DetailHewanPage {
     this.#presenter = new DetailHewanPresenter(hewanId, {
       view: this,
       apiModel: HewanModel,
+      hewanStatisModel: HewanStatisModel
     });
 
     this.#detailHewanLoadingContainer = document.getElementById('detail-hewan-loading');

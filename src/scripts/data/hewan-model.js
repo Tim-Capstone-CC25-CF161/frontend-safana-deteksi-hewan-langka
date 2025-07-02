@@ -8,8 +8,8 @@ const ENDPOINTS = {
   RIWAYAT_DETEKSI: (id) => `${CONFIG.BASE_URL}/histories/${id}`,
   PREDIKSI_BACKUP: `${CONFIG.BASE_URL_BACKUP}/predict`,
   PREDIKSI: `${CONFIG.BASE_URL}/predict`,
-  GALLERY: `${CONFIG.BASE_URL}/galeri`,
-  MAPS: `${CONFIG.BASE_URL}/maps`,
+  GALLERY: `${CONFIG.BASE_URL_BACKUP}/galeri`,
+  MAPS: `${CONFIG.BASE_URL_BACKUP}/maps`,
 };
 
 export function getOneRandomFunFact() {

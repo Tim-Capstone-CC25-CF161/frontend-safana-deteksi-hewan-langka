@@ -65,7 +65,7 @@ export default class GaleryPage {
     if (data_galery.length > 0) {
       bodyGalery.innerHTML = data_galery.map((data, index) => `
         <div class="card shadow galery-item-card" data-bs-toggle="modal" data-bs-target="#modalDetailImg${index}">
-          <img id="img-${index}" src="${CONFIG.BASE_URL + data.image}" class="object-fit-cover rounded h-100 img-item-galery d-none" alt="Foto Hewan ${data.nama_hewan}">
+          <img id="img-${index}" src="${CONFIG.BASE_URL_BACKUP + data.image}" class="object-fit-cover rounded h-100 img-item-galery d-none" alt="Foto Hewan ${data.nama_hewan}">
           <div id="loading-image-${index}" class="loading-image-galery">
             <svg class="loader-icon me-2 w-auto h-auto" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
               <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
@@ -87,7 +87,7 @@ export default class GaleryPage {
               </div>
               <div class="modal-body">
                 <div class="d-flex flex-column gap-2">
-                  <img id="detail-img-${index}" src="${CONFIG.BASE_URL + data.image}" class="img-fluid w-100" alt="Gambar ${data.nama_hewan.replaceAll('_', ' ')}">
+                  <img id="detail-img-${index}" src="${CONFIG.BASE_URL_BACKUP + data.image}" class="img-fluid w-100" alt="Gambar ${data.nama_hewan.replaceAll('_', ' ')}">
                 </div>
                 <div class="row mt-3">
                   <div class="col-12 col-md-6">
