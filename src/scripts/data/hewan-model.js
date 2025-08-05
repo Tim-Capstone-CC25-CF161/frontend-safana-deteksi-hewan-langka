@@ -64,7 +64,7 @@ export async function getPrediksi({ file, latitude, longitude }) {
   data.append('longitude', longitude);
   data.append('user_id', userDataLogin?.id || '');
 
-  const fetchResponse = await fetch(ENDPOINTS.PREDIKSI, {
+  const fetchResponse = await fetch(ENDPOINTS.PREDIKSI_BACKUP, {
     method: 'POST',
     body: data,
     credentials: 'include',
@@ -73,6 +73,7 @@ export async function getPrediksi({ file, latitude, longitude }) {
 
   return {
     ...json,
+    is_backup: true,
     ok: fetchResponse.ok,
   };
 }
